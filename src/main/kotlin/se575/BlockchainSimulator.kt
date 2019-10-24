@@ -1,13 +1,5 @@
-package demo
-
-fun getGreeting(): String {
-    val words = mutableListOf<String>()
-    words.add("Hello,")
-    words.add("world!")
-
-    return words.joinToString(separator = " ")
-}
+package se575
 
 fun main(args: Array<String>) {
-    println(getGreeting())
+    println("Starting node...")
 }
