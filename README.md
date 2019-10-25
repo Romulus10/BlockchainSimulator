@@ -1,5 +1,7 @@
-# BlockchainSimulator
-A blockchain simulator for SE 575
+# junit5-jupiter-starter-gradle-kotlin
 
-## Workflow
-`master` is a protected branch, so to commit to master you'll need to branch, do all your development, then open a pull request so that the CI will run and make sure nothing was broken.
+The `junit5-jupiter-starter-gradle-kotlin` project demonstrates how to run tests based on
+JUnit Jupiter using [Gradle's native JUnit Platform support], Gradle's Kotlin DSL
+and code and tests written in Kotlin.
+
+[Gradle's native JUnit Platform support]: https://docs.gradle.org/current/userguide/java_testing.html#using_junit5

@@ -1,4 +1,4 @@
-package se575
+package edu.drexel.se575
 
 class Transaction(to: String, fr: String, data: String) {
 private val block_height: Int? = null
