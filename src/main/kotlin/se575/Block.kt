@@ -1,5 +1,5 @@
 package se575
 
 class Block(size: Int, hash: String, txCount: Int, txList: Array<Transaction>) {
-  val time: Long =  System.currentTimeMillis())
+  private val time: Long =  System.currentTimeMillis()
 }
