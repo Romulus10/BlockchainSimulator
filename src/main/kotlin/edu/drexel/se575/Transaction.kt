@@ -1,6 +1,6 @@
 package edu.drexel.se575
 
-class Transaction(to: String, fr: String, data: String) {
-private val block_height: Int? = null
-private val block_number: Int? = null
+class Transaction(public var to: String, public var fr: String, public var data: String) {
+public var block_height: Int? = null
+public var block_number: Int? = null
 }
