@@ -1,11 +1,14 @@
 package edu.drexel.se575
 
-class Block(public var hash: String, public var txCount: Int, public var txList: Array<Transaction>) {
-  public var time: Long =  System.currentTimeMillis()
+class Block(var hash: String, var txCount: Int, var txList: Array<Transaction>) {
+  var time: Long = System.currentTimeMillis()
 }
 
 fun mintNewBlock(txList: Array<Transaction>): Block {
-  // TODO Generate a hash of the block - should probably implement a ToString for the Transaction object.
-  val hash: String = "Placeholder"
+  var tmp = ""
+  txList.forEach {
+    tmp += it.toString()
+  }
+  val hash: String = Util.sha1(tmp)
   return Block(hash, txList.size, txList)
 }
