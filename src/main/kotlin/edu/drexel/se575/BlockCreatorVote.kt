@@ -8,7 +8,7 @@ fun castVote(accountList: Array<Account>): Account {
   var vote_values = arrayOfNulls<Account>(accountList.size)
   var rand = Random()
   for (x in accountList.indices) {
-    vote_values[x] = accountList[x].weight/1000 * rand.nextDouble(1)
+    vote_values[x] = accountList[x].weight / 1000 * rand.nextDouble(1)
   }
   return max_account_weight(vote_values)
 }

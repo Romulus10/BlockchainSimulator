@@ -6,8 +6,8 @@ package edu.drexel.se575
  * @property weight The amount of coin held by this account.
  */
 class Account {
-    private var address: String
-    private var weight: Int = 0
+    var address: String
+    var weight: Int = 0
 
     init {
         val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
@@ -23,11 +23,11 @@ class Account {
  * @return The account in accountList with the highest staking weight.
  */
 fun max_account_weight(accountList: Array<Account>): Account? {
-  var max: Account? = null
-  for (x in accountList) {
-    if accountList[x].weight > max.weight {
-      max = accountList[x]
+    var max: Account? = null
+    for (x in accountList) {
+        if (x.weight > max!!.weight) {
+            max = x
+        }
     }
-  }
-  return max
+    return max
 }

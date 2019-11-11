@@ -9,7 +9,7 @@ object Util {
      * @returns The SHA-1 hash of [input].
      */
     fun sha1(input: String) = hashString("SHA-1", input)
-    
+
     /**
      * @returns The MD5 hash of [input].
      */
