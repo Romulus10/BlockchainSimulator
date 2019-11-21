@@ -14,9 +14,36 @@ class Compiler {
         var retval = ""
         val intermediate = line.split(' ')
         when (intermediate[0]) {
-            "move" -> retval + "0"
+            "nop" -> {
+                retval += "0-"
+            }
+            "mov" -> {
+                retval += "1-"
+            }
+            "trn" -> {
+                retval += "2-"
+            }
+            "sav" -> {
+                retval += "3-"
+            }
+            "lod" -> {
+                retval += "4-"
+            }
+            "add" -> {
+                retval += "5-"
+            }
+            "sub" -> {
+                retval += "6-"
+            }
+            "mul" -> {
+                retval += "7-"
+            }
             else -> throw InstructionException("An unknown instruction was encountered.")
         }
+        retval += "${intermediate[1]}-"
+        retval += "${intermediate[2]}-"
+        retval += "${intermediate[3]}|"
+        retval = retval.toByteArray().toString()
         return retval
     }
 
@@ -24,12 +51,11 @@ class Compiler {
      *
      */
     private fun readFile(fileName: String): String {
-        val list = ArrayList<String>()
+        var retval = ""
         File(fileName).forEachLine {
-            list.add(processLine(it))
+            retval += processLine(it)
         }
-        val array = arrayOfNulls<Array<String>>(list.size)
-        return list.toArray(array).toString()
+        return retval
     }
 
     /**
