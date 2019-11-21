@@ -3,6 +3,9 @@ package edu.drexel.se575
 import java.security.MessageDigest
 import javax.xml.bind.DatatypeConverter
 
+/**
+ *
+ */
 object Util {
 
     /**
