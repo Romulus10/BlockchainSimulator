@@ -15,5 +15,6 @@ jobs:
         java-version: 1.8
     - name: Build with Gradle
       run: |
+        ./Simulator/gradlew clean
         ./Simulator/gradlew build
         ./Simulator/gradlew test
