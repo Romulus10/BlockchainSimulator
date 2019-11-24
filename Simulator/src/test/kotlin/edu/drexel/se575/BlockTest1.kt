@@ -4,39 +4,30 @@ import org.junit.jupiter.api.Test
 
 internal class BlockTest {
 
-    @Test
-    fun getTime() {
+    @Test fun getTime() {
     }
 
-    @Test
-    fun setTime() {
+    @Test fun setTime() {
     }
 
-    @Test
-    fun mintNewBlock() {
+    @Test fun mintNewBlock() {
     }
 
-    @Test
-    fun getHash() {
+    @Test fun getHash() {
     }
 
-    @Test
-    fun setHash() {
+    @Test fun setHash() {
     }
 
-    @Test
-    fun getTxCount() {
+    @Test fun getTxCount() {
     }
 
-    @Test
-    fun setTxCount() {
+    @Test fun setTxCount() {
     }
 
-    @Test
-    fun getTxList() {
+    @Test fun getTxList() {
     }
 
-    @Test
-    fun setTxList() {
+    @Test fun setTxList() {
     }
 }
