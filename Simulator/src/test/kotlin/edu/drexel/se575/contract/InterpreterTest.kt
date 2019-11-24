@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test
 
 internal class InterpreterTest {
 
-    @Test
-    fun runContract() {
+    @Test fun runContract() {
     }
 }

@@ -4,19 +4,15 @@ import org.junit.jupiter.api.Test
 
 internal class AccountTest {
 
-    @Test
-    fun getAddress() {
+    @Test fun getAddress() {
     }
 
-    @Test
-    fun setAddress() {
+    @Test fun setAddress() {
     }
 
-    @Test
-    fun getWeight() {
+    @Test fun getWeight() {
     }
 
-    @Test
-    fun setWeight() {
+    @Test fun setWeight() {
     }
 }

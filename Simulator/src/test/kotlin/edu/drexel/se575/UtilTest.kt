@@ -4,11 +4,9 @@ import org.junit.jupiter.api.Test
 
 internal class UtilTest {
 
-    @Test
-    fun sha1() {
+    @Test fun sha1() {
     }
 
-    @Test
-    fun md5() {
+    @Test fun md5() {
     }
 }
