@@ -21,6 +21,5 @@ jobs:
       run: |
         cd Frontend/ionic-app
         npm install
-        npm test
       env:
         CI: true
