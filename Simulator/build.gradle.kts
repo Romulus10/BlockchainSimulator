@@ -12,6 +12,7 @@ dependencies {
 	implementation(kotlin("stdlib-jdk8"))
 	testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
 	implementation("javax.xml.bind:jaxb-api:2.3.1")
+	implementation("com.google.code.gson:gson:2.8.6")
 }
 
 tasks.test {
