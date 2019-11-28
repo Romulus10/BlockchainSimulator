@@ -14,6 +14,7 @@ dependencies {
 	implementation("javax.xml.bind:jaxb-api:2.3.1")
 	implementation("com.google.code.gson:gson:2.8.6")
 	implementation("io.javalin:javalin:3.6.0")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
 }
 
 tasks.test {

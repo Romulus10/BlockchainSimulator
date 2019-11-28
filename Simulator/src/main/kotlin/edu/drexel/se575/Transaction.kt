@@ -1,9 +1,11 @@
 package edu.drexel.se575
 
+import kotlinx.serialization.*
+
 /**
  *
  */
-class Transaction(var to: String, var fr: String, var data: String) {
+@Serializable class Transaction(var to: String, var fr: String, var data: String) {
     var blockHeight: Int? = null
     var blockNumber: Int? = null
 

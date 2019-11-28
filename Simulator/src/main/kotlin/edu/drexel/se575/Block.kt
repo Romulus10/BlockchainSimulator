@@ -1,5 +1,7 @@
 package edu.drexel.se575
 
+import kotlinx.serialization.*
+
 /**
  * The thing we're chaining together. There's not much more to it than that.
  * @property transactions -- the transactions data
@@ -9,7 +11,7 @@ package edu.drexel.se575
  * @property previousBlockHash -- hash of the previous block in the chain
  * @property hash -- sha1 of the timeBlockMinted, previousBlockHash, transactions turned to string and smashed together
  */
-class Block(var transactions: Array<Transaction>, var validator: String,
+@Serializable class Block(var transactions: Array<Transaction>, var validator: String,
             var signature: String, var previousBlockHash: String) {
 
   private val timeBlockMinted: Long = System.currentTimeMillis()
@@ -26,4 +28,3 @@ class Block(var transactions: Array<Transaction>, var validator: String,
 fun mintStartingBlock(): Block{
   return Block(arrayOf(),"Start", "start", "000")
 }
-
