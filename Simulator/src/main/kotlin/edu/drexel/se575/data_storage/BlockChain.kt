@@ -5,7 +5,7 @@ import edu.drexel.se575.Transaction
 
 import edu.drexel.se575.mintStartingBlock
 
-class BlockChain{
+class BlockChain {
 
     private var transactionQueue = TransactionQueue(this)
 
@@ -20,13 +20,13 @@ class BlockChain{
         blockList.add(mintStartingBlock())
     }
 
-    fun addTransactionToQueue(transaction: Transaction){
+    fun addTransactionToQueue(transaction: Transaction) {
         transactionQueue.addTransaction(transaction)
     }
 
 
     //TODO replace empty validator/signature values
-    fun mintBlockIfOverFiveTx(){
+    fun mintBlockIfOverFiveTx() {
         val blockTx = transactionQueue.getTransactionsForBlock()
         val newBlock = Block(blockTx, "TEMP VALIDATOR", "TEMP SIGNATURE",
                 blockList.last().hash)
@@ -36,21 +36,21 @@ class BlockChain{
 
 
     override fun toString(): String {
-        return blockList.joinToString (separator = "\n"){ it -> it.print() }
+        return blockList.joinToString(separator = "\n") { it.print() }
     }
 
-    fun checkBlock(blockInvestigating: Block, previousBlock: Block): Boolean{
-        if (previousBlock.hash != blockInvestigating.previousBlockHash){
+    private fun checkBlock(blockInvestigating: Block, previousBlock: Block): Boolean {
+        if (previousBlock.hash != blockInvestigating.previousBlockHash) {
             return false
         }
 
         return true
     }
 
-    fun isValid(): Boolean{
-        for (i in 1 until (blockList.size -1)){
-            val isValid = checkBlock(blockList[i], blockList[i-1])
-            if(!isValid){
+    fun isValid(): Boolean {
+        for (i in 1 until (blockList.size - 1)) {
+            val isValid = checkBlock(blockList[i], blockList[i - 1])
+            if (!isValid) {
                 return false
             }
         }

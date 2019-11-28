@@ -1,6 +1,6 @@
 package edu.drexel.se575
 
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
 
 /**
  * The thing we're chaining together. There's not much more to it than that.
@@ -21,7 +21,7 @@ import kotlinx.serialization.*
 
   fun print(): String{
     return "Block $hash; Minted at: $timeBlockMinted; by $validator. " +
-            "Data: ${transactions.joinToString(separator = ",") { it -> "\n\t$it" }}"
+            "Data: ${transactions.joinToString(separator = ",") { "\n\t$it" }}"
   }
 }
 
