@@ -11,6 +11,10 @@ class BlockChain{
 
     private var blockList = arrayListOf<Block>()
 
+    val size: Int
+        get() = blockList.size
+
+
     init {
         blockList.add(mintStartingBlock())
     }
@@ -20,6 +24,7 @@ class BlockChain{
     }
 
 
+    //TODO replace empty validator/signature values
     fun mintBlockIfOverFiveTx(){
         val blockTx = transactionQueue.getTransactionsForBlock()
         val newBlock = mintNewBlock(blockTx, "TEMP VALIDATOR", "TEMP SIGNATURE",
@@ -27,6 +32,7 @@ class BlockChain{
 
         blockList.add(newBlock)
     }
+
 
     override fun toString(): String {
         return blockList.joinToString (separator = "\n"){ it -> it.toString() }
