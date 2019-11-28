@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test
 
 class BlockChainTest {
 
+    private val testTransaction = Transaction("To string", "From string", "My data string")
+
     @Test
     fun `empty blockchain inits with one empty block`(){
         val blockChain = BlockChain()
@@ -14,7 +16,6 @@ class BlockChainTest {
     @Test
     fun `test 5 transactions makes a block`(){
         val blockChain = BlockChain()
-        val testTransaction = Transaction("To string", "From string", "My data string")
 
         //start with one block from empty init
         repeat(4){
@@ -37,7 +38,6 @@ class BlockChainTest {
     @Test
     fun `make a valid blockchain with 10 blocks and check is valid`(){
         val blockChain = BlockChain()
-        val testTransaction = Transaction("To string", "From string", "My data string")
 
         repeat(45){
             blockChain.addTransactionToQueue(testTransaction)
@@ -50,7 +50,6 @@ class BlockChainTest {
     @Test
     fun `edit a blockchain with 10 blocks and find not valid`(){
         val blockChain = BlockChain()
-        val testTransaction = Transaction("To string", "From string", "My data string")
 
         repeat(45){
             blockChain.addTransactionToQueue(testTransaction)
@@ -63,4 +62,39 @@ class BlockChainTest {
 
         assert(! blockChain.isValid())
     }
+
+    @Test
+    fun `replace blockchain with a valid chain`(){
+        val myBlockChain = BlockChain()
+        val otherBlockChain = BlockChain()
+
+        repeat(45){
+            otherBlockChain.addTransactionToQueue(testTransaction)
+        }
+        assert(otherBlockChain.isValid())
+
+        myBlockChain.replaceChain(otherBlockChain)
+
+        assert(myBlockChain.size == 10)
+        assert(myBlockChain.isValid())
+    }
+
+    @Test
+    fun `fail to replace blockchain with invalid chain`(){
+        val myBlockChain = BlockChain()
+        val otherBlockChain = BlockChain()
+
+        assert(myBlockChain.size == 1)
+
+        repeat(45){
+            otherBlockChain.addTransactionToQueue(testTransaction)
+        }
+
+        otherBlockChain.blockList[3].transactions[1].to = "ILLEGAL_NEW_RECIPIENT"
+        myBlockChain.replaceChain(otherBlockChain)
+
+        assert(myBlockChain.size == 1)
+
+    }
+
 }

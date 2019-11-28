@@ -56,4 +56,12 @@ class BlockChain{
         }
         return true
     }
+
+    fun replaceChain(newBlockChain: BlockChain): Boolean{
+        if (newBlockChain.isValid()){
+            this.blockList = newBlockChain.blockList
+            return true
+        }
+        return false
+    }
 }
