@@ -19,7 +19,7 @@ class Block(var transactions: Array<Transaction>, var validator: String,
 
   fun print(): String{
     return "Block $hash; Minted at: $timeBlockMinted; by $validator. " +
-            "Data: ${transactions.joinToString(separator = ","){ it -> "\n\t${it.toString()}" } }"
+            "Data: ${transactions.joinToString(separator = ",") { it -> "\n\t$it" }}"
   }
 }
 
