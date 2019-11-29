@@ -1,23 +1,17 @@
-package edu.drexel.se575.data_storage
+package edu.drexel.se575
 
-import edu.drexel.se575.Block
-import edu.drexel.se575.Transaction
-
-import edu.drexel.se575.mintStartingBlock
-
-class BlockChain{
+class BlockChain(var blockList: ArrayList<Block> = arrayListOf<Block>()) {
 
     private var transactionQueue = TransactionQueue(this)
-
-    //Not making private, this lets us edit blocks illegally  for demonstration purposes
-    var blockList = arrayListOf<Block>()
 
     val size: Int
         get() = blockList.size
 
 
     init {
-        blockList.add(mintStartingBlock())
+        if (blockList.size == 0) {
+            blockList.add(mintStartingBlock())
+        }
     }
 
     fun addTransactionToQueue(transaction: Transaction){
@@ -43,7 +37,6 @@ class BlockChain{
         if (previousBlock.hash != blockInvestigating.previousBlockHash){
             return false
         }
-
         return true
     }
 
@@ -64,4 +57,5 @@ class BlockChain{
         }
         return false
     }
+
 }

@@ -1,6 +1,4 @@
-package edu.drexel.se575.data_storage
-
-import edu.drexel.se575.Transaction
+package edu.drexel.se575
 
 
 class TransactionQueue(var blockChain: BlockChain){

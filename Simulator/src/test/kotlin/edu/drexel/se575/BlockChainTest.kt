@@ -1,6 +1,5 @@
-package edu.drexel.se575.data_storage
+package edu.drexel.se575
 
-import edu.drexel.se575.Transaction
 import org.junit.jupiter.api.Test
 
 class BlockChainTest {
