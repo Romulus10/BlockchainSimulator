@@ -9,31 +9,33 @@ fun main() {
 
     app.get("/") { ctx -> ctx.result("Hello World") }
 
-    app.post("/transaction/create") { ctx ->
+    app.post("/client/transaction/create") { ctx ->
         ctx.result("")
     }
 
-    app.get("/transaction/list") { ctx ->
+    app.get("/client/transaction/list") { ctx ->
         ctx.result("")
     }
 
-    app.get("/transaction/list_by_block/:block_id") { ctx ->
+    app.get("/client/transaction/list_by_block/:block_id") { ctx ->
         ctx.result("")
     }
 
-    app.get("/transaction/:tx_id") { ctx ->
+    app.get("/client/transaction/:tx_id") { ctx ->
         ctx.result("")
     }
 
-    app.post("/block/create") { ctx ->
+    app.post("/client/block/create") { ctx ->
         ctx.result("")
     }
 
-    app.get("/block/list") { ctx ->
+    app.get("/client/block/list") { ctx ->
         ctx.result("")
     }
 
-    app.get("/block/:tx_id") { ctx ->
+    app.get("/client/block/:tx_id") { ctx ->
         ctx.result("")
     }
+
+    app.get("/rpc/") { ctx -> ctx.result("") }
 }
