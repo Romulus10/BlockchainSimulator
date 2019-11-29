@@ -36,6 +36,4 @@ fun main() {
     app.get("/client/block/:tx_id") { ctx ->
         ctx.result("")
     }
-
-    app.get("/rpc/") { ctx -> ctx.result("") }
 }
