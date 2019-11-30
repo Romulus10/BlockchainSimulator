@@ -1,10 +1,12 @@
 package edu.drexel.se575
 
+import edu.drexel.se575.data_storage.BlockChain
 import io.javalin.Javalin
 
 fun main() {
     println("Starting node...")
 
+    P2PServer(BlockChain(), 5001).listen()
     val app = Javalin.create().start(7000)
 
     app.get("/") { ctx -> ctx.result("Hello World") }
