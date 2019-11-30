@@ -11,8 +11,8 @@ class Transaction(var to: String, var fr: String, var data: String) {
     /**
      *
      */
-    fun sign(): String {
-        return "SIGNATURE_PLACEHOLDER"
+    fun sign() {
+        signature = "SIGNATURE_PLACEHOLDER"
     }
 
     /**
