@@ -9,6 +9,10 @@ class BlockChainTest {
     private val keyPair = Cryptography().generateKeyPair()
     private val testTransaction = Transaction("To string", "From string", "My data string", keyPair!!.public)
 
+    init {
+        testTransaction.sign(keyPair!!.private)
+    }
+
     @Test
     fun `empty blockchain inits with one empty block`(){
         val blockChain = BlockChain()

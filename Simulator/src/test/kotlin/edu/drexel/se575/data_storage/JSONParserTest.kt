@@ -27,7 +27,7 @@ class JSONParserTest {
     fun `read blockchain from generated file`() {
         writeBlockChainToFile(testBlockChain)
         val readBlockChain = readBlockChainFromFile()
-
         assert(readBlockChain.size == 10)
+        assert(readBlockChain.isValid())
     }
 }
