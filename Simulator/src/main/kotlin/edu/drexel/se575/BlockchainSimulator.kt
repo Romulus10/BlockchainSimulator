@@ -1,5 +1,41 @@
 package edu.drexel.se575
 
-fun main(args: Array<String>) {
+import edu.drexel.se575.data_storage.BlockChain
+import io.javalin.Javalin
+
+fun main() {
     println("Starting node...")
+
+    P2PServer(BlockChain(), 5001).listen()
+    val app = Javalin.create().start(7000)
+
+    app.get("/") { ctx -> ctx.result("Hello World") }
+
+    app.post("/client/transaction/create") { ctx ->
+        ctx.result("")
+    }
+
+    app.get("/client/transaction/list") { ctx ->
+        ctx.result("")
+    }
+
+    app.get("/client/transaction/list_by_block/:block_id") { ctx ->
+        ctx.result("")
+    }
+
+    app.get("/client/transaction/:tx_id") { ctx ->
+        ctx.result("")
+    }
+
+    app.post("/client/block/create") { ctx ->
+        ctx.result("")
+    }
+
+    app.get("/client/block/list") { ctx ->
+        ctx.result("")
+    }
+
+    app.get("/client/block/:tx_id") { ctx ->
+        ctx.result("")
+    }
 }

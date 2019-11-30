@@ -13,6 +13,10 @@ dependencies {
 	testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
 	implementation("javax.xml.bind:jaxb-api:2.3.1")
 	implementation("com.google.code.gson:gson:2.8.6")
+	implementation("io.javalin:javalin:3.6.0")
+	implementation("org.jetbrains.kotlin:kotlin-serialization:1.3.31")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
+	implementation("org.slf4j:slf4j-simple:1.8.0-beta4")
 }
 
 tasks.test {
