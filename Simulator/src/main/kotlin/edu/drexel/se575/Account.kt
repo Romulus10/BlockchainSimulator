@@ -32,3 +32,15 @@ fun maxAccountWeight(accountList: Array<Account>, voteValues: Array<Double?>): A
     }
     return max
 }
+
+fun transferAccountValue(accountList: Array<Account?>, to: String?, fr: String?, amount: Int) {
+    accountList.forEach {
+        it!! // Assert that this object is not null.
+        if (it.address == to) {
+            it.weight -= amount
+        }
+        if (it.address == fr) {
+            it.weight += amount
+        }
+    }
+}
