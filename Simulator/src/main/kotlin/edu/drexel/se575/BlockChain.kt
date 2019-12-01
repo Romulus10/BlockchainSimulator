@@ -6,6 +6,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
     private var transactionQueue = TransactionQueue(this)
     private var interpreter = Interpreter()
+    private var stakeManager = StakeManager()
 
     val size: Int
         get() = blockList.size

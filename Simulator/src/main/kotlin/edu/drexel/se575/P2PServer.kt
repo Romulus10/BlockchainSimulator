@@ -1,6 +1,5 @@
 package edu.drexel.se575
 
-import edu.drexel.se575.BlockChain
 import java.io.OutputStream
 import java.net.ServerSocket
 import java.net.Socket
