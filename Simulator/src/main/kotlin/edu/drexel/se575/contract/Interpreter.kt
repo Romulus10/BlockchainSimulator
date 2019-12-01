@@ -1,5 +1,8 @@
 package edu.drexel.se575.contract
 
+import edu.drexel.se575.Account
+import edu.drexel.se575.transferAccountValue
+
 /**
  *
  */
@@ -12,10 +15,12 @@ class Interpreter {
 
     private var instructions = HashMap<Int, List<String>>()
 
+    var accountList = ArrayList<Account>()
+
     /**
      *
      */
-    fun runContract(contract: String) {
+    fun runContract(contract: String): Int {
         var index = 0
         contract.split("|").forEach { instr ->
             instructions[index++] = instr.split('-')
@@ -27,7 +32,7 @@ class Interpreter {
                     memory[instructions[index]?.get(1)!!.toInt()] = memory[instructions[index]?.get(2)!!.toInt()]
                 }
                 "2" -> { //trn
-                    // TODO Write an account value transfer function.
+                    transferAccountValue(accountList.toArray().filterIsInstance<Account?>().toTypedArray().apply { if (size != accountList.size) throw Exception() }, instructions[index]?.get(2), instructions[index]?.get(3), instructions[index]?.get(1)!!.toInt())
                 }
                 "3" -> { //sav
                     storage[instructions[index]?.get(2)!!.toInt()] = memory[instructions[index]?.get(1)!!.toInt()]
@@ -78,7 +83,20 @@ class Interpreter {
                         }
                     }
                 }
+                "12" -> { //ret
+                    return memory[instructions[index]?.get(1)!!.toInt()]
+                }
+                "13" -> { //act
+                    accountList.add(Account())
+                }
+                "14" -> { //bal
+                    return accountList.filter {
+                        it.address == instructions[index]?.get(1)
+                    }[0].weight
+                }
             }
+            index++
         }
+        return 0
     }
 }
