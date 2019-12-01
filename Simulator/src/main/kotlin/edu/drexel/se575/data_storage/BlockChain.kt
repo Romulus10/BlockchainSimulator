@@ -1,10 +1,10 @@
 package edu.drexel.se575.data_storage
 
 import edu.drexel.se575.Block
-import edu.drexel.se575.Cryptography
 import edu.drexel.se575.Transaction
 
 import edu.drexel.se575.mintStartingBlock
+import edu.drexel.se575.verify
 import java.lang.IllegalArgumentException
 
 class BlockChain {
@@ -27,7 +27,7 @@ class BlockChain {
             throw IllegalArgumentException("The Transaction must be signed before adding to block chain")
         }
 
-        val isValidTransaction = Cryptography().verify(transaction.toString(),
+        val isValidTransaction = verify(transaction.toString(),
                 transaction.signature, transaction.publicKey)
 
         if (isValidTransaction) {

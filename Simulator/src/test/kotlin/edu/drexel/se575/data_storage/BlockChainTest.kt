@@ -1,12 +1,12 @@
 package edu.drexel.se575.data_storage
 
-import edu.drexel.se575.Cryptography
 import edu.drexel.se575.Transaction
+import edu.drexel.se575.generateKeyPair
 import org.junit.jupiter.api.Test
 
 class BlockChainTest {
 
-    private val keyPair = Cryptography().generateKeyPair()
+    private val keyPair = generateKeyPair()
     private val testTransaction = Transaction("To string", "From string", "My data string", keyPair!!.public)
 
     init {
@@ -63,7 +63,7 @@ class BlockChainTest {
         assert(blockChain.size == 10)
 
         val myPhonyTransaction = Transaction("me", "you", "transfers 1 MILLION dollars!",
-                Cryptography().generateKeyPair()!!.public)
+                generateKeyPair()!!.public)
 
         blockChain.blockList[4].transactions[1]=myPhonyTransaction
 
