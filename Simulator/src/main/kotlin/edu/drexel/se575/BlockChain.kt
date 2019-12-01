@@ -1,6 +1,6 @@
 package edu.drexel.se575
 
-class BlockChain(var blockList: ArrayList<Block> = arrayListOf<Block>()) {
+class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
     private var transactionQueue = TransactionQueue(this)
 
@@ -30,7 +30,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf<Block>()) {
 
 
     override fun toString(): String {
-        return blockList.joinToString (separator = "\n"){ it -> it.print() }
+        return blockList.joinToString (separator = "\n"){ it.print() }
     }
 
     fun checkBlock(blockInvestigating: Block, previousBlock: Block): Boolean{

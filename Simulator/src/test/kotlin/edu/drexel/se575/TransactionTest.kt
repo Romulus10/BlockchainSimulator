@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 
 internal class TransactionTest {
 
-    private val myKeyPair = Cryptography().generateKeyPair()
+    private val myKeyPair = generateKeyPair()
     private val testTransaction = Transaction("To string", "From string", "My data string", myKeyPair!!.public)
 
 
@@ -46,12 +46,12 @@ internal class TransactionTest {
         testTransaction.sign(myKeyPair!!.private)
         assert (testTransaction.signature != null)
 
-        assert(Cryptography().verify(testTransaction.toString(), testTransaction.signature, testTransaction.publicKey))
+        assert(verify(testTransaction.toString(), testTransaction.signature, testTransaction.publicKey))
     }
 
     @Test
     fun `fail to forge signature transaction`(){
-        val otherKeyPair = Cryptography().generateKeyPair()
+        val otherKeyPair = generateKeyPair()
         val forgedTransaction = Transaction("To me", "From them", "pay $100", otherKeyPair!!.public)
         forgedTransaction.sign(myKeyPair!!.private)
 
