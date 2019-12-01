@@ -32,7 +32,7 @@ class Interpreter {
                     memory[instructions[index]?.get(1)!!.toInt()] = memory[instructions[index]?.get(2)!!.toInt()]
                 }
                 "2" -> { //trn
-                    transferAccountValue(accountList.toArray().filterIsInstance<Account?>().toTypedArray(), instructions[index]?.get(2), instructions[index]?.get(3), instructions[index]?.get(1)!!.toInt())
+                    transferAccountValue(accountList.toArray().filterIsInstance<Account?>().toTypedArray().apply { if (size != accountList.size) throw Exception() }, instructions[index]?.get(2), instructions[index]?.get(3), instructions[index]?.get(1)!!.toInt())
                 }
                 "3" -> { //sav
                     storage[instructions[index]?.get(2)!!.toInt()] = memory[instructions[index]?.get(1)!!.toInt()]
