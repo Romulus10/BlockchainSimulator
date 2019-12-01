@@ -53,7 +53,9 @@ private fun processLine(line: String): String {
                 retval += "14"
             }
         }
-        if (intermediate.size > 1) {
+        if (intermediate.size == 2) {
+            retval += "-${intermediate[1]}|"
+        } else {
             retval += "-${intermediate[1]}-"
             retval += if (intermediate.size == 4) {
                 "${intermediate[2]}-${intermediate[3]}|"
