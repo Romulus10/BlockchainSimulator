@@ -2,12 +2,14 @@ package edu.drexel.se575.data_storage
 
 import edu.drexel.se575.BlockChain
 import edu.drexel.se575.Transaction
+import edu.drexel.se575.generateKeyPair
 import org.junit.jupiter.api.Test
 
 class JSONParserTest {
 
     private val testBlockChain = BlockChain()
-    private val testTransaction = Transaction("To string", "From string", "My data string")
+    private val testTransaction = Transaction("To string", "From string", "My data string",
+            generateKeyPair()!!.public)
 
     init {
         repeat(45) {
@@ -25,7 +27,7 @@ class JSONParserTest {
     fun `read blockchain from generated file`() {
         writeBlockChainToFile(testBlockChain)
         val readBlockChain = readBlockChainFromFile()
-
         assert(readBlockChain.size == 10)
+        assert(readBlockChain.isValid())
     }
 }

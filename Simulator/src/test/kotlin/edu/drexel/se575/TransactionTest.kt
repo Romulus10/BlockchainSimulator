@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Test
 
 internal class TransactionTest {
 
+    private val myKeyPair = generateKeyPair()
+    private val testTransaction = Transaction("To string", "From string", "My data string", myKeyPair!!.public)
+
+
     @Test fun getBlockHeight() {
     }
 
@@ -36,4 +40,24 @@ internal class TransactionTest {
 
     @Test fun setData() {
     }
+
+    @Test
+    fun `sign transaction`(){
+        testTransaction.sign(myKeyPair!!.private)
+        assert (testTransaction.signature != null)
+
+        assert(verify(testTransaction.toString(), testTransaction.signature, testTransaction.publicKey))
+    }
+
+    @Test
+    fun `fail to forge signature transaction`(){
+        val otherKeyPair = generateKeyPair()
+        val forgedTransaction = Transaction("To me", "From them", "pay $100", otherKeyPair!!.public)
+        forgedTransaction.sign(myKeyPair!!.private)
+
+        val isValid = forgedTransaction.verify()
+        assert(!isValid)
+
+    }
+
 }

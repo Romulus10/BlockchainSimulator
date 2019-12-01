@@ -4,6 +4,8 @@ import edu.drexel.se575.Block
 import edu.drexel.se575.Transaction
 
 import edu.drexel.se575.mintStartingBlock
+import edu.drexel.se575.verify
+import java.lang.IllegalArgumentException
 
 class BlockChain {
 
@@ -21,13 +23,27 @@ class BlockChain {
     }
 
     fun addTransactionToQueue(transaction: Transaction) {
-        transactionQueue.addTransaction(transaction)
+        if (transaction.signature.isNullOrEmpty()){
+            throw IllegalArgumentException("The Transaction must be signed before adding to block chain")
+        }
+
+        val isValidTransaction = verify(transaction.toString(),
+                transaction.signature, transaction.publicKey)
+
+        if (isValidTransaction) {
+            transactionQueue.addTransaction(transaction)
+        }
+        else {
+            throw IllegalStateException("The transaction signature is invalid!")
+        }
     }
 
 
     //TODO replace empty validator/signature values
     fun mintBlockIfOverFiveTx() {
         val blockTx = transactionQueue.getTransactionsForBlock()
+
+
         val newBlock = Block(blockTx, "TEMP VALIDATOR", "TEMP SIGNATURE",
                 blockList.last().hash)
 
