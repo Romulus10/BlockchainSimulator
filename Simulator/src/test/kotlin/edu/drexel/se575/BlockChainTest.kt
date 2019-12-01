@@ -1,10 +1,13 @@
 package edu.drexel.se575
 
 import org.junit.jupiter.api.Test
+import java.security.KeyPairGenerator
 
 class BlockChainTest {
 
-    private val testTransaction = Transaction("To string", "From string", "My data string")
+    private val keyPair = Cryptography().generateKeyPair()
+    private val testTransaction = Transaction("To string", "From string", "My data string", keyPair!!.public)
+
 
     @Test
     fun `empty blockchain inits with one empty block`(){
@@ -34,6 +37,7 @@ class BlockChainTest {
         assert(blockChain.size == 3)
     }
 
+
     @Test
     fun `make a valid blockchain with 10 blocks and check is valid`(){
         val blockChain = BlockChain()
@@ -55,7 +59,9 @@ class BlockChainTest {
         }
         assert(blockChain.size == 10)
 
-        val myPhonyTransaction = Transaction("me", "you", "transfers 1 MILLION dollars!")
+
+        val myPhonyTransaction = Transaction("me", "you", "transfers 1 MILLION dollars!",
+                Cryptography().generateKeyPair()!!.public)
 
         blockChain.blockList[4].transactions[1]=myPhonyTransaction
 
