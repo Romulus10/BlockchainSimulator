@@ -38,4 +38,12 @@ fun main() {
     app.get("/client/block/:tx_id") { ctx ->
         ctx.result("")
     }
+
+    app.get("/client/account/:address") { ctx ->
+        ctx.result("")
+    }
+
+    app.get("/client/account/list") { ctx ->
+        ctx.result("")
+    }
 }

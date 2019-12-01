@@ -46,12 +46,20 @@ private fun processLine(line: String): String {
             "ret" -> {
                 retval += "12"
             }
+            "act" -> {
+                retval += "13"
+            }
+            "bal" -> {
+                retval += "14"
+            }
         }
-        retval += "-${intermediate[1]}-"
-        if (intermediate.size == 4) {
-            retval += "${intermediate[2]}-${intermediate[3]}|"
-        } else {
-            retval += "${intermediate[2]}|"
+        if (intermediate.size > 1) {
+            retval += "-${intermediate[1]}-"
+            retval += if (intermediate.size == 4) {
+                "${intermediate[2]}-${intermediate[3]}|"
+            } else {
+                "${intermediate[2]}|"
+            }
         }
     }
     return retval
