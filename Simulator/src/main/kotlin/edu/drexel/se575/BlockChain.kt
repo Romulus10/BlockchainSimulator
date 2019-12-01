@@ -76,7 +76,12 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun listKnownAddresses(): Array<Account> {
-        return interpreter.accountList.toArray() as Array<Account>
+        val accountArray = interpreter.accountList.toArray()
+        val finalCastArray = accountArray.filterIsInstance<Account>().toTypedArray()
+        if (accountArray.size != finalCastArray.size) {
+            throw IllegalArgumentException("Array of known addresses has bad value!")
+        }
+        return finalCastArray
     }
 
 }
