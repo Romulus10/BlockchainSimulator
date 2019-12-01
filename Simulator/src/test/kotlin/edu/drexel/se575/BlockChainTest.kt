@@ -1,11 +1,10 @@
 package edu.drexel.se575
 
 import org.junit.jupiter.api.Test
-import java.security.KeyPairGenerator
 
 class BlockChainTest {
 
-    private val keyPair = Cryptography().generateKeyPair()
+    private val keyPair = generateKeyPair()
     private val testTransaction = Transaction("To string", "From string", "My data string", keyPair!!.public)
 
 
@@ -61,7 +60,7 @@ class BlockChainTest {
 
 
         val myPhonyTransaction = Transaction("me", "you", "transfers 1 MILLION dollars!",
-                Cryptography().generateKeyPair()!!.public)
+                generateKeyPair()!!.public)
 
         blockChain.blockList[4].transactions[1]=myPhonyTransaction
 

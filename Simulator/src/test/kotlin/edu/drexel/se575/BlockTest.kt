@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class BlockTests {
-    private val keyPair = Cryptography().generateKeyPair()
+    private val keyPair = generateKeyPair()
 
     @Test
     fun `mintNewBlock produces a valid block with the correct size`() {

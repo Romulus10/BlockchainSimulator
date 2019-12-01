@@ -1,15 +1,15 @@
 package edu.drexel.se575.data_storage
 
 import edu.drexel.se575.BlockChain
-import edu.drexel.se575.Cryptography
 import edu.drexel.se575.Transaction
+import edu.drexel.se575.generateKeyPair
 import org.junit.jupiter.api.Test
 
 class JSONParserTest {
 
     private val testBlockChain = BlockChain()
     private val testTransaction = Transaction("To string", "From string", "My data string",
-            Cryptography().generateKeyPair()!!.public)
+            generateKeyPair()!!.public)
 
     init {
         repeat(45) {

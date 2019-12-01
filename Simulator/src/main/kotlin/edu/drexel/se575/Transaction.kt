@@ -15,14 +15,14 @@ class Transaction(var to: String, var fr: String, var data: String, var publicKe
      *
      */
     fun sign(privateKey: PrivateKey) {
-        signature = Cryptography().sign(this.toString(), privateKey)
+        signature = sign(this.toString(), privateKey)
     }
 
     /**
      *
      */
     fun verify(): Boolean{
-        return Cryptography().verify(this.toString(), this.signature, this.publicKey)
+        return verify(this.toString(), this.signature, this.publicKey)
     }
 
     override fun toString(): String {
