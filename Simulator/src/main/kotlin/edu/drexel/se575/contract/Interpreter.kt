@@ -15,6 +15,8 @@ class Interpreter {
 
     private var instructions = HashMap<Int, List<String>>()
 
+    var accountList = ArrayList<Account>()
+
     /**
      *
      */
@@ -30,7 +32,7 @@ class Interpreter {
                     memory[instructions[index]?.get(1)!!.toInt()] = memory[instructions[index]?.get(2)!!.toInt()]
                 }
                 "2" -> { //trn
-                    transferAccountValue(arrayOfNulls(1), instructions[index]?.get(2), instructions[index]?.get(3), instructions[index]?.get(1)!!.toInt())
+                    transferAccountValue(accountList.toArray() as Array<Account?>, instructions[index]?.get(2), instructions[index]?.get(3), instructions[index]?.get(1)!!.toInt())
                 }
                 "3" -> { //sav
                     storage[instructions[index]?.get(2)!!.toInt()] = memory[instructions[index]?.get(1)!!.toInt()]
@@ -83,6 +85,14 @@ class Interpreter {
                 }
                 "12" -> { //ret
                     return memory[instructions[index]?.get(1)!!.toInt()]
+                }
+                "13" -> { //act
+                    accountList.add(Account())
+                }
+                "14" -> { //bal
+                    return accountList.filter {
+                        it.address == instructions[index]?.get(1)
+                    }[0].weight
                 }
             }
             index++
