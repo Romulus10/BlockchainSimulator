@@ -2,8 +2,6 @@ package edu.drexel.se575
 
 
 class StakeManager {
-
-
     private var accountStakeAmounts: ArrayList<Stake> = arrayListOf()
 
     private fun findStake(account: Account): Stake? {
