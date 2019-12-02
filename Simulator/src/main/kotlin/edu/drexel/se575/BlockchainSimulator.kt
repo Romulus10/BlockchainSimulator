@@ -13,7 +13,14 @@ fun main() {
     }
 
     app.post("/client/transaction/create") { ctx ->
-        // TODO Figure out a POST body format.
+        val toAddress = ctx.formParam("to")
+        val frAddress = ctx.formParam("from")
+        val data = ctx.formParam("data")
+        val fr = blockChain.interpreter.accountList.filter { it.address == frAddress }[0]
+        val tx = Transaction(toAddress!!, frAddress!!, data!!, fr.publicKey)
+        tx.sign(fr.privateKey)
+        blockChain.addTransactionToQueue(tx)
+        ctx.status(200)
     }
 
     app.get("/client/transaction/list") { ctx ->
