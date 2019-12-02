@@ -5,7 +5,6 @@ import io.javalin.Javalin
 fun main() {
     println("Starting node...")
 
-    P2PServer(BlockChain(), 5001).listen()
     val app = Javalin.create().start(7000)
 
     app.get("/") { ctx -> ctx.result("Hello World") }
@@ -45,4 +44,6 @@ fun main() {
     app.get("/client/account/list") { ctx ->
         ctx.result("")
     }
+
+    P2PServer(BlockChain(), 5001).listen()
 }
