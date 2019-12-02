@@ -13,43 +13,51 @@ fun main() {
     }
 
     app.post("/client/transaction/create") { ctx ->
-        ctx.result("")
+        // TODO Figure out a POST body format.
     }
 
     app.get("/client/transaction/list") { ctx ->
-        ctx.result("")
+        val txList = ArrayList<Transaction>()
+        blockChain.blockList.forEach {b ->
+            b.transactions.forEach {
+                txList.add(it)
+            }
+        }
+        ctx.json(txList)
     }
 
     app.get("/client/transaction/list_by_block/:block_id") { ctx ->
         val blockID = ctx.pathParam("block_id")
-        ctx.result("")
+        ctx.json(blockChain.blockList.filter { it.signature == blockID }[0].transactions)
     }
 
     app.get("/client/transaction/:tx_id") { ctx ->
         val txID = ctx.pathParam("tx_id")
-        ctx.result("")
-    }
-
-    app.post("/client/block/create") { ctx ->
-        ctx.result("")
+        val txList = ArrayList<Transaction>()
+        blockChain.blockList.forEach {b ->
+            b.transactions.forEach {
+                txList.add(it)
+            }
+        }
+        ctx.json(txList.filter { txID == it.signature }[0])
     }
 
     app.get("/client/block/list") { ctx ->
-        ctx.result("")
+        ctx.json(blockChain.blockList)
     }
 
-    app.get("/client/block/:tx_id") { ctx ->
-        val txID = ctx.pathParam("tx_id")
-        ctx.result("")
+    app.get("/client/block/:block_id") { ctx ->
+        val blockID = ctx.pathParam("block_id")
+        ctx.json(blockChain.blockList.filter { it.hash == blockID }[0])
     }
 
     app.get("/client/account/:address") { ctx ->
         val address = ctx.pathParam("address")
-        ctx.result("")
+        ctx.json(blockChain.interpreter.accountList.filter { it.address == address }[0])
     }
 
     app.get("/client/account/list") { ctx ->
-        ctx.result("")
+        ctx.json(blockChain.interpreter.accountList)
     }
 
     P2PServer(BlockChain(), 5001).listen()

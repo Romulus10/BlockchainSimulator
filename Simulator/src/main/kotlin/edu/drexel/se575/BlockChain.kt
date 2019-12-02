@@ -5,7 +5,7 @@ import edu.drexel.se575.contract.Interpreter
 class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
     private var transactionQueue = TransactionQueue(this)
-    private var interpreter = Interpreter()
+    var interpreter = Interpreter()
     private var stakeManager = StakeManager()
 
     val size: Int
@@ -84,5 +84,4 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         }
         return finalCastArray
     }
-
 }
