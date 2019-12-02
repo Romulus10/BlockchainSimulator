@@ -7,7 +7,7 @@ import java.util.*
 import kotlin.concurrent.thread
 
 class P2PServer(private var blockchain: BlockChain, private var port: Int) {
-    val connections = ArrayList<ClientHandler>()
+    private val connections = ArrayList<ClientHandler>()
 
     fun listen() {
         val server = ServerSocket(port)

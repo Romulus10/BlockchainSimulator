@@ -26,21 +26,6 @@ class Account {
     }
 }
 
-/**
- * Now in O(n) complexity!
- * @return The account in accountList with the highest staking weight.
- */
-fun maxAccountWeight(accountList: Array<Account>, voteValues: Array<Double?>): Account? {
-    var max: Account? = null
-    val maxVote = 0.0
-    for (x in accountList.indices) {
-        if (voteValues[x]!! > maxVote) {
-            max = accountList[x]
-        }
-    }
-    return max
-}
-
 fun transferAccountValue(accountList: Array<Account?>, to: String?, fr: String?, amount: Int) {
     accountList.forEach {
         it!! // Assert that this object is not null.

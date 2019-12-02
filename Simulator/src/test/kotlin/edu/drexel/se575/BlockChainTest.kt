@@ -14,13 +14,13 @@ class BlockChainTest {
         getMoney()
     }
 
-    fun getMoney(){
+    private fun getMoney() {
         acctA.balance = 100.toFloat()
         acctB.balance = 100.toFloat()
     }
 
-    fun make9Blocks(blockChain: BlockChain){
-        repeat(9){
+    private fun make9Blocks(blockChain: BlockChain) {
+        repeat(9) {
             getMoney()
             blockChain.stakeCoins(acctA, 99.toFloat())
             repeat(5) {
@@ -28,14 +28,15 @@ class BlockChainTest {
             }
         }
     }
+
     @Test
-    fun `empty blockchain inits with one empty block`(){
+    fun `empty blockchain inits with one empty block`() {
         val blockChain = BlockChain()
         assert(blockChain.size == 1)
     }
 
     @Test
-    fun `test 5 transactions makes a block`(){
+    fun `test 5 transactions makes a block`() {
         val blockChain = BlockChain()
         getMoney()
 
@@ -43,7 +44,7 @@ class BlockChainTest {
         blockChain.stakeCoins(acctB, 1.toFloat())
 
         //start with one block from empty init
-        repeat(4){
+        repeat(4) {
             blockChain.addTransactionToQueue(testTransaction)
             assert(blockChain.size == 1)
         }
@@ -52,7 +53,7 @@ class BlockChainTest {
         assert(blockChain.size == 2)
 
         //repeat above just to be extra confident
-        repeat(4){
+        repeat(4) {
             blockChain.addTransactionToQueue(testTransaction)
             assert(blockChain.size == 2)
         }
@@ -62,7 +63,7 @@ class BlockChainTest {
 
 
     @Test
-    fun `make a valid blockchain with 10 blocks and check is valid`(){
+    fun `make a valid blockchain with 10 blocks and check is valid`() {
         val blockChain = BlockChain()
         getMoney()
 
@@ -74,7 +75,7 @@ class BlockChainTest {
     }
 
     @Test
-    fun `edit a blockchain with 10 blocks and find not valid`(){
+    fun `edit a blockchain with 10 blocks and find not valid`() {
         val blockChain = BlockChain()
         getMoney()
 
@@ -85,13 +86,13 @@ class BlockChainTest {
         val myPhonyTransaction = Transaction("me", "you", "transfers 1 MILLION dollars!",
                 generateKeyPair()!!.public)
 
-        blockChain.blockList[4].transactions[1]=myPhonyTransaction
+        blockChain.blockList[4].transactions[1] = myPhonyTransaction
 
-        assert(! blockChain.isValid())
+        assert(!blockChain.isValid())
     }
 
     @Test
-    fun `replace blockchain with a valid chain`(){
+    fun `replace blockchain with a valid chain`() {
         val myBlockChain = BlockChain()
         val otherBlockChain = BlockChain()
         getMoney()
@@ -109,7 +110,7 @@ class BlockChainTest {
     }
 
     @Test
-    fun `fail to replace blockchain with invalid chain`(){
+    fun `fail to replace blockchain with invalid chain`() {
         val myBlockChain = BlockChain()
         val otherBlockChain = BlockChain()
 
@@ -121,12 +122,11 @@ class BlockChainTest {
         myBlockChain.replaceChain(otherBlockChain)
 
         assert(myBlockChain.size == 1)
-
     }
 
 
     @Test
-    fun `staking coins actually costs money`(){
+    fun `staking coins actually costs money`() {
         val blockChain = BlockChain()
         getMoney()
 
@@ -136,7 +136,7 @@ class BlockChainTest {
     }
 
     @Test
-    fun `pay previous minter`(){
+    fun `pay previous minter`() {
         val testBlockChain = BlockChain()
         val testAccount = Account()
         testAccount.balance = 5.toFloat()
@@ -144,7 +144,7 @@ class BlockChainTest {
         testBlockChain.stakeCoins(testAccount, 5.toFloat())
         assert(testAccount.balance == 0.toFloat())
 
-        repeat(5){
+        repeat(5) {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
         val testAccountB = Account()
@@ -152,12 +152,10 @@ class BlockChainTest {
         testBlockChain.stakeCoins(testAccountB, 3.toFloat())
         assert(testAccountB.balance == 2.toFloat())
 
-        repeat(5){
+        repeat(5) {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
 
         assert(testAccount.balance == 10.toFloat() && testAccountB.balance == 2.toFloat())
-
-
     }
 }

@@ -1,14 +1,12 @@
 package edu.drexel.se575
 
-import java.lang.IllegalArgumentException
-
 
 class StakeManager {
     private var accountStakeAmounts: ArrayList<Stake> = arrayListOf()
     var currentStake: Stake? = null
 
 
-    fun findStake(account: Account): Stake? {
+    private fun findStake(account: Account): Stake? {
         for (stake in accountStakeAmounts) {
             if (stake.account.publicKey == account.publicKey) {
                 return stake

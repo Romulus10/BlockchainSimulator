@@ -1,14 +1,14 @@
 package edu.drexel.se575
 
 
-class TransactionQueue(var blockChain: BlockChain){
+class TransactionQueue(private var blockChain: BlockChain) {
 
-    var transactions = arrayListOf<Transaction>()
+    private var transactions = arrayListOf<Transaction>()
 
-    fun addTransaction(transaction: Transaction){
+    fun addTransaction(transaction: Transaction) {
         transactions.add(transaction)
 
-        if (transactions.size > 4){
+        if (transactions.size > 4) {
             blockChain.mintBlockIfOverFiveTx()
         }
     }
