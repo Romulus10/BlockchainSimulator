@@ -8,8 +8,8 @@ fun main() {
     val app = Javalin.create().start(7000)
     val blockChain = BlockChain()
 
-    app.get("/") {
-        ctx -> ctx.result("The API is working.")
+    app.get("/") { ctx ->
+        ctx.result("The API is working.")
     }
 
     app.post("/client/transaction/create") { ctx ->
@@ -18,9 +18,17 @@ fun main() {
         // TODO Broadcast the transaction out to all peers.
     }
 
+    app.post("/client/account/create") {
+        val acct = Account()
+        blockChain.interpreter.accountList.add(acct)
+        val tx = Transaction(acct.address, acct.address, "act", acct.publicKey)
+        tx.sign(acct.privateKey)
+        blockChain.addTransactionToQueue(tx)
+    }
+
     app.get("/client/transaction/list") { ctx ->
         val txList = ArrayList<Transaction>()
-        blockChain.blockList.forEach {b ->
+        blockChain.blockList.forEach { b ->
             b.transactions.forEach {
                 txList.add(it)
             }
@@ -36,7 +44,7 @@ fun main() {
     app.get("/client/transaction/:tx_id") { ctx ->
         val txID = ctx.pathParam("tx_id")
         val txList = ArrayList<Transaction>()
-        blockChain.blockList.forEach {b ->
+        blockChain.blockList.forEach { b ->
             b.transactions.forEach {
                 txList.add(it)
             }
@@ -58,8 +66,13 @@ fun main() {
         ctx.json(blockChain.interpreter.accountList.filter { it.address == address }[0])
     }
 
+    app.get("/client/account/balance/:address") { ctx ->
+        val address = ctx.pathParam("address")
+        ctx.json(blockChain.interpreter.accountList.filter { it.address == address }[0].balance)
+    }
+
     app.get("/client/account/list") { ctx ->
-        ctx.json(blockChain.interpreter.accountList)
+        ctx.json(blockChain.listKnownAddresses())
     }
 
     P2PServer(BlockChain(), 5001).listen()
