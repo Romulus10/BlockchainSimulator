@@ -1,7 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+	application
 	kotlin("jvm") version "1.3.31"
+}
+
+application {
+  mainClassName = "edu.drexel.se575.BlockchainSimulatorKt"
 }
 
 repositories {
