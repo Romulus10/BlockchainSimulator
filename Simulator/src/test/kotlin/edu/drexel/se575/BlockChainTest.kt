@@ -7,6 +7,8 @@ class BlockChainTest {
     private val keyPair = generateKeyPair()
     private val testTransaction = Transaction("To string", "From string", "My data string", keyPair!!.public)
 
+    private val acctA = Account()
+    private val acctB = Account()
 
     @Test
     fun `empty blockchain inits with one empty block`(){
@@ -17,6 +19,9 @@ class BlockChainTest {
     @Test
     fun `test 5 transactions makes a block`(){
         val blockChain = BlockChain()
+
+        blockChain.stakeCoins(acctA, 99.0.toFloat())
+        blockChain.stakeCoins(acctB, 1.toFloat())
 
         //start with one block from empty init
         repeat(4){
@@ -41,6 +46,9 @@ class BlockChainTest {
     fun `make a valid blockchain with 10 blocks and check is valid`(){
         val blockChain = BlockChain()
 
+        blockChain.stakeCoins(acctA, 99.0.toFloat())
+        blockChain.stakeCoins(acctB, 1.toFloat())
+
         repeat(45){
             blockChain.addTransactionToQueue(testTransaction)
         }
@@ -52,6 +60,9 @@ class BlockChainTest {
     @Test
     fun `edit a blockchain with 10 blocks and find not valid`(){
         val blockChain = BlockChain()
+
+        blockChain.stakeCoins(acctA, 99.0.toFloat())
+        blockChain.stakeCoins(acctB, 1.toFloat())
 
         repeat(45){
             blockChain.addTransactionToQueue(testTransaction)
@@ -72,6 +83,13 @@ class BlockChainTest {
         val myBlockChain = BlockChain()
         val otherBlockChain = BlockChain()
 
+        myBlockChain.stakeCoins(acctA, 99.0.toFloat())
+        myBlockChain.stakeCoins(acctB, 1.toFloat())
+
+        otherBlockChain.stakeCoins(acctA, 99.0.toFloat())
+        otherBlockChain.stakeCoins(acctB, 1.toFloat())
+
+
         repeat(45){
             otherBlockChain.addTransactionToQueue(testTransaction)
         }
@@ -87,6 +105,12 @@ class BlockChainTest {
     fun `fail to replace blockchain with invalid chain`(){
         val myBlockChain = BlockChain()
         val otherBlockChain = BlockChain()
+
+        myBlockChain.stakeCoins(acctA, 99.0.toFloat())
+        myBlockChain.stakeCoins(acctB, 1.toFloat())
+
+        otherBlockChain.stakeCoins(acctA, 99.0.toFloat())
+        otherBlockChain.stakeCoins(acctB, 1.toFloat())
 
         assert(myBlockChain.size == 1)
 

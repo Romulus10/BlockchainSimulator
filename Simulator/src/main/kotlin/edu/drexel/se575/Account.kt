@@ -11,8 +11,8 @@ import java.security.PublicKey
 class Account {
     var address: String
     var weight: Int = 0
-    private val privateKey: PrivateKey
-    private val publicKey: PublicKey
+    val privateKey: PrivateKey
+    val publicKey: PublicKey
 
     init {
         val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')

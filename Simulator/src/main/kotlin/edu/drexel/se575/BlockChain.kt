@@ -2,10 +2,12 @@ package edu.drexel.se575
 
 import edu.drexel.se575.contract.Interpreter
 
+
 class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
     private var transactionQueue = TransactionQueue(this)
-    private var interpreter = Interpreter()
+    var interpreter = Interpreter()
+    private var stakeManager = StakeManager()
 
     val size: Int
         get() = blockList.size
@@ -23,11 +25,15 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
 
-    //TODO replace empty validator/signature values
+
     fun mintBlockIfOverFiveTx() {
+        if (stakeManager.hasNoCoinsStaked()){
+            return
+        }
+        val validator = stakeManager.chooseValidator()
         val blockTx = transactionQueue.getTransactionsForBlock()
-        val newBlock = Block(blockTx, "TEMP VALIDATOR", "TEMP SIGNATURE",
-                blockList.last().hash)
+        val signature = createSignatureForNewBlock(blockTx, validator.privateKey)
+        val newBlock = Block(blockTx, validator.publicKey.toString(), signature!!, blockList.last().hash)
 
         blockList.add(newBlock)
     }
@@ -84,4 +90,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         return finalCastArray
     }
 
+    fun stakeCoins(account: Account, amount: Float){
+        stakeManager.stakeCoins(account, amount)
+    }
 }

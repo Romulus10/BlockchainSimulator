@@ -1,5 +1,6 @@
 package edu.drexel.se575.data_storage
 
+import edu.drexel.se575.Account
 import edu.drexel.se575.BlockChain
 import edu.drexel.se575.Transaction
 import edu.drexel.se575.generateKeyPair
@@ -12,6 +13,7 @@ class JSONParserTest {
             generateKeyPair()!!.public)
 
     init {
+        testBlockChain.stakeCoins(Account(), 99.toFloat())
         repeat(45) {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
