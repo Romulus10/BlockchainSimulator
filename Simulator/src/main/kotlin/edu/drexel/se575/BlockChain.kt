@@ -86,12 +86,6 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         return false
     }
 
-    fun getBalanceFromAddress(address: String): Float {
-        return interpreter.accountList.filter {
-            it.address == address
-        }[0].balance
-    }
-
     fun listKnownAddresses(): Array<Account> {
         val accountArray = interpreter.accountList.toArray()
         val finalCastArray = accountArray.filterIsInstance<Account>().toTypedArray()

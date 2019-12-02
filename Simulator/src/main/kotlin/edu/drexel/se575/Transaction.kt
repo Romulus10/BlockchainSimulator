@@ -2,12 +2,11 @@ package edu.drexel.se575
 
 import java.security.PrivateKey
 import java.security.PublicKey
-import kotlin.collections.ArrayList
 
 /**
  *
  */
-class Transaction(var to: String, var fr: String, var data: String, var publicKey: PublicKey) {
+class Transaction(var to: String, private var fr: String, var data: String, var publicKey: PublicKey) {
     var signature: String? = null
     var blockHeight: Int? = null
     var blockNumber: Int? = null
@@ -22,13 +21,9 @@ class Transaction(var to: String, var fr: String, var data: String, var publicKe
     /**
      *
      */
-    fun verify(): Boolean {
-        return verify(this.toString(), this.signature, this.publicKey)
-    }
+    fun verify(): Boolean = verify(this.toString(), this.signature, this.publicKey)
 
-    override fun toString(): String {
-        return "To: %s, From: %s, pubkey: %s, Data: %s, Block Height: %s, Block Number: %s".format(to, fr, publicKey, data, blockHeight, blockNumber)
-    }
+    override fun toString(): String = "To: %s, From: %s, pubkey: %s, Data: %s, Block Height: %s, Block Number: %s".format(to, fr, publicKey, data, blockHeight, blockNumber)
 }
 
 fun transactionFromString(accountList: ArrayList<Account>, tx: String): Transaction {
@@ -45,8 +40,4 @@ fun transactionFromString(accountList: ArrayList<Account>, tx: String): Transact
     return t
 }
 
-fun getKey(accountList: ArrayList<Account>, address: String): PublicKey {
-    val x = accountList.filter { it.address == address }
-    val y = x[0].publicKey
-    return y
-}
+fun getKey(accountList: ArrayList<Account>, address: String): PublicKey = accountList.filter { it.address == address }[0].publicKey

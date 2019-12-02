@@ -13,31 +13,4 @@ class BlockTests {
         val block = Block(blockTxList, "test", "test", "000")
         assertEquals(block.transactions.size, 1)
     }
-
-    @Test fun getTime() {
-    }
-
-    @Test fun setTime() {
-    }
-
-    @Test fun mintNewBlock() {
-    }
-
-    @Test fun getHash() {
-    }
-
-    @Test fun setHash() {
-    }
-
-    @Test fun getTxCount() {
-    }
-
-    @Test fun setTxCount() {
-    }
-
-    @Test fun getTxList() {
-    }
-
-    @Test fun setTxList() {
-    }
 }

@@ -10,51 +10,6 @@ internal class TransactionTest {
     private val myKeyPair = generateKeyPair()
     private val testTransaction = Transaction("To string", "From string", "My data string", myKeyPair!!.public)
 
-
-    @Test
-    fun getBlockHeight() {
-    }
-
-    @Test
-    fun setBlockHeight() {
-    }
-
-    @Test
-    fun getBlockNumber() {
-    }
-
-    @Test
-    fun setBlockNumber() {
-    }
-
-    @Test
-    fun testToString() {
-    }
-
-    @Test
-    fun getTo() {
-    }
-
-    @Test
-    fun setTo() {
-    }
-
-    @Test
-    fun getFr() {
-    }
-
-    @Test
-    fun setFr() {
-    }
-
-    @Test
-    fun getData() {
-    }
-
-    @Test
-    fun setData() {
-    }
-
     @Test
     fun `sign transaction`() {
         testTransaction.sign(myKeyPair!!.private)

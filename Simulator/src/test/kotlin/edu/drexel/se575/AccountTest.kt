@@ -28,11 +28,4 @@ internal class AccountTest {
         acct.balance = 1.toFloat()
         assertEquals(acct.balance, 1.toFloat())
     }
-
-    @Test fun maxAccountWeight() {
-
-    }
-
-    @Test fun transferAccountValue() {
-    }
 }

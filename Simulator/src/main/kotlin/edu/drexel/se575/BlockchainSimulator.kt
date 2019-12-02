@@ -7,6 +7,7 @@ fun main() {
 
     val app = Javalin.create().start(7000)
     val blockChain = BlockChain()
+    val p2pserver = P2PServer(BlockChain(), 5001)
 
     app.get("/") { ctx ->
         ctx.result("The API is working.")
@@ -20,6 +21,7 @@ fun main() {
         val tx = Transaction(toAddress!!, frAddress!!, data!!, fr.publicKey)
         tx.sign(fr.privateKey)
         blockChain.addTransactionToQueue(tx)
+        p2pserver.sendTransaction(tx)
         ctx.status(200)
     }
 
@@ -29,6 +31,7 @@ fun main() {
         val tx = Transaction(acct.address, acct.address, "act", acct.publicKey)
         tx.sign(acct.privateKey)
         blockChain.addTransactionToQueue(tx)
+        p2pserver.sendTransaction(tx)
     }
 
     app.get("/client/transaction/list") { ctx ->
@@ -80,5 +83,5 @@ fun main() {
         ctx.json(blockChain.listKnownAddresses())
     }
 
-    P2PServer(BlockChain(), 5001).listen()
+    p2pserver.listen()
 }

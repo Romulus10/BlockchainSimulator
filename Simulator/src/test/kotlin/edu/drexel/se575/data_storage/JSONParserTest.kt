@@ -23,7 +23,7 @@ class JSONParserTest {
         }
     }
 
-    fun fundAccount(){
+    private fun fundAccount() {
         testAccount.balance = 100.toFloat()
     }
 
