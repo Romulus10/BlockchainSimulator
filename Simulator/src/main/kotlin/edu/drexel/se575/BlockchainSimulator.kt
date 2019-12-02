@@ -14,6 +14,8 @@ fun main() {
 
     app.post("/client/transaction/create") { ctx ->
         // TODO Figure out a POST body format.
+        // TODO Create and submit a new transaction.
+        // TODO Broadcast the transaction out to all peers.
     }
 
     app.get("/client/transaction/list") { ctx ->
