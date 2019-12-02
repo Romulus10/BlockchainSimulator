@@ -33,7 +33,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         val validator = stakeManager.chooseValidator()
         val blockTx = transactionQueue.getTransactionsForBlock()
         val signature = createSignatureForNewBlock(blockTx, validator.privateKey)
-        val newBlock = Block(blockTx, validator.publicKey.toString(), signature, blockList.last().hash)
+        val newBlock = Block(blockTx, validator.publicKey.toString(), signature!!, blockList.last().hash)
 
         blockList.add(newBlock)
     }
@@ -88,6 +88,10 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
             throw IllegalArgumentException("Array of known addresses has bad value!")
         }
         return finalCastArray
+    }
+
+    fun stakeCoins(account: Account, amount: Float){
+        stakeManager.stakeCoins(account, amount)
     }
 
 }

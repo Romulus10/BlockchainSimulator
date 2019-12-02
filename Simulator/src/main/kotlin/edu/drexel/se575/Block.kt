@@ -25,9 +25,8 @@ class Block(var transactions: Array<Transaction>, var validator: String,
   }
 }
 
-fun createSignatureForNewBlock(transactions: Array<Transaction>, validatorPrivate: PrivateKey): String{
-   sign(transactions.joinToString { "$it " }, validatorPrivate)
-
+fun createSignatureForNewBlock(transactions: Array<Transaction>, validatorPrivate: PrivateKey): String?{
+   return sign(transactions.joinToString { "$it " }, validatorPrivate)
 }
 
 fun mintStartingBlock(): Block{
