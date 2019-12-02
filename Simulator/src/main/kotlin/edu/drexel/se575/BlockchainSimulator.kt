@@ -6,8 +6,11 @@ fun main() {
     println("Starting node...")
 
     val app = Javalin.create().start(7000)
+    val blockChain = BlockChain()
 
-    app.get("/") { ctx -> ctx.result("Hello World") }
+    app.get("/") {
+        ctx -> ctx.result("The API is working.")
+    }
 
     app.post("/client/transaction/create") { ctx ->
         ctx.result("")
@@ -18,10 +21,12 @@ fun main() {
     }
 
     app.get("/client/transaction/list_by_block/:block_id") { ctx ->
+        val blockID = ctx.pathParam("block_id")
         ctx.result("")
     }
 
     app.get("/client/transaction/:tx_id") { ctx ->
+        val txID = ctx.pathParam("tx_id")
         ctx.result("")
     }
 
@@ -34,10 +39,12 @@ fun main() {
     }
 
     app.get("/client/block/:tx_id") { ctx ->
+        val txID = ctx.pathParam("tx_id")
         ctx.result("")
     }
 
     app.get("/client/account/:address") { ctx ->
+        val address = ctx.pathParam("address")
         ctx.result("")
     }
 
