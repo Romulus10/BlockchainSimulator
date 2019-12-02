@@ -25,15 +25,15 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
 
-    //TODO replace empty validator/signature values
+
     fun mintBlockIfOverFiveTx() {
         if (stakeManager.hasNoCoinsStaked()){
             return
         }
         val validator = stakeManager.chooseValidator()
         val blockTx = transactionQueue.getTransactionsForBlock()
-        val newBlock = Block(blockTx, validator.publicKey.toString(), "Signature temp",
-                blockList.last().hash)
+        val signature = createSignatureForNewBlock(blockTx, validator.privateKey)
+        val newBlock = Block(blockTx, validator.publicKey.toString(), signature, blockList.last().hash)
 
         blockList.add(newBlock)
     }
