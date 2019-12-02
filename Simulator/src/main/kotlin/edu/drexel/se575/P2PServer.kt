@@ -7,6 +7,8 @@ import java.util.*
 import kotlin.concurrent.thread
 
 class P2PServer(private var blockchain: BlockChain, private var port: Int) {
+    val connections = ArrayList<ClientHandler>()
+
     fun listen() {
         val server = ServerSocket(port)
         println("Listening for P2P connections on port: ${this.port}")
@@ -14,7 +16,15 @@ class P2PServer(private var blockchain: BlockChain, private var port: Int) {
         while (true) {
             val client = server.accept()
             println("Peer connected: ${client.inetAddress.hostAddress}")
-            thread { ClientHandler(blockchain, client).run() }
+            val handler = ClientHandler(blockchain, client)
+            thread { handler.run() }
+            connections.add(handler)
+        }
+    }
+
+    fun sendTransaction(transaction: Transaction) {
+        connections.forEach {
+            it.sendTransaction(transaction)
         }
     }
 }
@@ -28,12 +38,22 @@ class ClientHandler(private val blockchain: BlockChain, private val client: Sock
     fun run() {
         while (running) {
             try {
-                // Event handling for receiving blockchains from other nodes
-                // Periodically send this node's blockchain out to its peers
+                listenForTransactions()
             } catch (ex: Exception) {
                 shutdown()
             }
         }
+    }
+
+    private fun listenForTransactions() {
+        while (running) {
+            val transaction = reader.next()
+            blockchain.addTransactionToQueue(transactionFromString(blockchain.interpreter.accountList, transaction))
+        }
+    }
+
+    fun sendTransaction(transaction: Transaction) {
+        writer.write(transaction.toString().toByteArray())
     }
 
     private fun shutdown() {
