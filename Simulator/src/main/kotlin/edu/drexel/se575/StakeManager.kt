@@ -13,6 +13,10 @@ class StakeManager {
         return null
     }
 
+    fun hasNoCoinsStaked(): Boolean{
+        return accountStakeAmounts.size <= 0
+    }
+
     fun stakeCoins(account: Account, coins: Float) {
         val currentStake = findStake(account)
         if (currentStake == null) {

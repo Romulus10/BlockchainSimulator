@@ -2,6 +2,7 @@ package edu.drexel.se575
 
 import edu.drexel.se575.contract.Interpreter
 
+
 class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
     private var transactionQueue = TransactionQueue(this)
@@ -26,8 +27,12 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
     //TODO replace empty validator/signature values
     fun mintBlockIfOverFiveTx() {
+        if (stakeManager.hasNoCoinsStaked()){
+            return
+        }
+        val validator = stakeManager.chooseValidator()
         val blockTx = transactionQueue.getTransactionsForBlock()
-        val newBlock = Block(blockTx, "TEMP VALIDATOR", "TEMP SIGNATURE",
+        val newBlock = Block(blockTx, validator.publicKey.toString(), "Signature temp",
                 blockList.last().hash)
 
         blockList.add(newBlock)
