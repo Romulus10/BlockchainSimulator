@@ -19,6 +19,14 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         }
     }
 
+    private fun payPreviousMinter(){
+        if (stakeManager.currentStake != null){
+            val accountToPay = stakeManager.currentStake!!.account
+            accountToPay.balance += stakeManager.currentStake!!.coinAmountStaked
+            accountToPay.balance += blockList.last().transactions.size
+        }
+    }
+
     fun addTransactionToQueue(transaction: Transaction) {
         interpreter.runContract(transaction.data)
         transactionQueue.addTransaction(transaction)
@@ -30,11 +38,14 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         if (stakeManager.hasNoCoinsStaked()){
             return
         }
+        payPreviousMinter()
+
         val validator = stakeManager.chooseValidator()
         val blockTx = transactionQueue.getTransactionsForBlock()
         val signature = createSignatureForNewBlock(blockTx, validator.privateKey)
         val newBlock = Block(blockTx, validator.publicKey.toString(), signature!!, blockList.last().hash)
 
+        stakeManager.updateCurrentStake(validator)
         blockList.add(newBlock)
     }
 
@@ -75,10 +86,10 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         return false
     }
 
-    fun getBalanceFromAddress(address: String): Int {
+    fun getBalanceFromAddress(address: String): Float {
         return interpreter.accountList.filter {
             it.address == address
-        }[0].weight
+        }[0].balance
     }
 
     fun listKnownAddresses(): Array<Account> {

@@ -19,14 +19,14 @@ internal class AccountTest {
 
     @Test fun getWeight() {
         val acct = Account()
-        acct.weight = 1
-        assertEquals(acct.weight, 1)
+        acct.balance = 1.toFloat()
+        assertEquals(acct.balance, 1.toFloat())
     }
 
     @Test fun setWeight() {
         val acct = Account()
-        acct.weight = 1
-        assertEquals(acct.weight, 1)
+        acct.balance = 1.toFloat()
+        assertEquals(acct.balance, 1.toFloat())
     }
 
     @Test fun maxAccountWeight() {

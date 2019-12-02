@@ -20,7 +20,7 @@ class Interpreter {
     /**
      *
      */
-    fun runContract(contract: String): Int {
+    fun runContract(contract: String): Float {
         var index = 0
         contract.split("|").forEach { instr ->
             instructions[index++] = instr.split('-')
@@ -84,7 +84,7 @@ class Interpreter {
                     }
                 }
                 "12" -> { //ret
-                    return memory[instructions[index]?.get(1)!!.toInt()]
+                    return memory[instructions[index]?.get(1)!!.toInt()].toFloat()
                 }
                 "13" -> { //act
                     accountList.add(Account())
@@ -92,11 +92,11 @@ class Interpreter {
                 "14" -> { //bal
                     return accountList.filter {
                         it.address == instructions[index]?.get(1)
-                    }[0].weight
+                    }[0].balance
                 }
             }
             index++
         }
-        return 0
+        return 0.toFloat()
     }
 }
