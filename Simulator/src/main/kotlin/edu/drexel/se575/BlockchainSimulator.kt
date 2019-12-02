@@ -20,7 +20,7 @@ fun main() {
         val tx = Transaction(toAddress!!, frAddress!!, data!!, fr.publicKey)
         tx.sign(fr.privateKey)
         blockChain.addTransactionToQueue(tx)
-        ctx.status(2000
+        ctx.status(200)
     }
 
     app.post("/client/account/create") {
