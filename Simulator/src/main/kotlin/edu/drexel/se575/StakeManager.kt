@@ -1,10 +1,14 @@
 package edu.drexel.se575
 
+import java.lang.IllegalArgumentException
+
 
 class StakeManager {
     private var accountStakeAmounts: ArrayList<Stake> = arrayListOf()
+    var currentStake: Stake? = null
 
-    private fun findStake(account: Account): Stake? {
+
+    fun findStake(account: Account): Stake? {
         for (stake in accountStakeAmounts) {
             if (stake.account.publicKey == account.publicKey) {
                 return stake
@@ -13,16 +17,28 @@ class StakeManager {
         return null
     }
 
+    fun updateCurrentStake(account: Account){
+        currentStake = findStake(account)
+        accountStakeAmounts.remove(currentStake)
+    }
+
     fun hasNoCoinsStaked(): Boolean{
         return accountStakeAmounts.size <= 0
     }
 
+
     fun stakeCoins(account: Account, coins: Float) {
-        val currentStake = findStake(account)
-        if (currentStake == null) {
-            accountStakeAmounts.add(Stake(account, coins))
+
+        if (account.balance < coins) {
+            throw IllegalArgumentException("Account has insufficient funds to stake $coins coins")
         } else {
-            currentStake.updateStakedCoinAmount(coins)
+            account.balance -= coins
+            val existingStake = findStake(account)
+            if (existingStake == null) {
+                accountStakeAmounts.add(Stake(account, coins))
+            } else {
+                existingStake.updateStakedCoinAmount(coins)
+            }
         }
     }
 

@@ -6,11 +6,11 @@ import java.security.PublicKey
 /**
  * A nice, warm place to keep your stuff and run transactions from.
  * @property address The unique address of the account.
- * @property weight The amount of coin held by this account.
+ * @property balance The amount of coin held by this account.
  */
 class Account {
     var address: String
-    var weight: Int = 0
+    var balance: Float = 0.toFloat()
     val privateKey: PrivateKey
     val publicKey: PublicKey
 
@@ -45,10 +45,10 @@ fun transferAccountValue(accountList: Array<Account?>, to: String?, fr: String?,
     accountList.forEach {
         it!! // Assert that this object is not null.
         if (it.address == to) {
-            it.weight -= amount
+            it.balance -= amount
         }
         if (it.address == fr) {
-            it.weight += amount
+            it.balance += amount
         }
     }
 }
