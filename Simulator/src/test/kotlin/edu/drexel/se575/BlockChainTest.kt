@@ -10,6 +10,24 @@ class BlockChainTest {
     private val acctA = Account()
     private val acctB = Account()
 
+    init {
+        getMoney()
+    }
+
+    fun getMoney(){
+        acctA.balance = 100.toFloat()
+        acctB.balance = 100.toFloat()
+    }
+
+    fun make9Blocks(blockChain: BlockChain){
+        repeat(9){
+            getMoney()
+            blockChain.stakeCoins(acctA, 99.toFloat())
+            repeat(5) {
+                blockChain.addTransactionToQueue(testTransaction)
+            }
+        }
+    }
     @Test
     fun `empty blockchain inits with one empty block`(){
         val blockChain = BlockChain()
@@ -19,6 +37,7 @@ class BlockChainTest {
     @Test
     fun `test 5 transactions makes a block`(){
         val blockChain = BlockChain()
+        getMoney()
 
         blockChain.stakeCoins(acctA, 99.0.toFloat())
         blockChain.stakeCoins(acctB, 1.toFloat())
@@ -45,13 +64,10 @@ class BlockChainTest {
     @Test
     fun `make a valid blockchain with 10 blocks and check is valid`(){
         val blockChain = BlockChain()
+        getMoney()
 
-        blockChain.stakeCoins(acctA, 99.0.toFloat())
-        blockChain.stakeCoins(acctB, 1.toFloat())
+        make9Blocks(blockChain)
 
-        repeat(45){
-            blockChain.addTransactionToQueue(testTransaction)
-        }
         assert(blockChain.size == 10)
 
         assert(blockChain.isValid())
@@ -60,13 +76,9 @@ class BlockChainTest {
     @Test
     fun `edit a blockchain with 10 blocks and find not valid`(){
         val blockChain = BlockChain()
+        getMoney()
 
-        blockChain.stakeCoins(acctA, 99.0.toFloat())
-        blockChain.stakeCoins(acctB, 1.toFloat())
-
-        repeat(45){
-            blockChain.addTransactionToQueue(testTransaction)
-        }
+        make9Blocks(blockChain)
         assert(blockChain.size == 10)
 
 
@@ -82,17 +94,12 @@ class BlockChainTest {
     fun `replace blockchain with a valid chain`(){
         val myBlockChain = BlockChain()
         val otherBlockChain = BlockChain()
-
-        myBlockChain.stakeCoins(acctA, 99.0.toFloat())
-        myBlockChain.stakeCoins(acctB, 1.toFloat())
-
-        otherBlockChain.stakeCoins(acctA, 99.0.toFloat())
-        otherBlockChain.stakeCoins(acctB, 1.toFloat())
+        getMoney()
 
 
-        repeat(45){
-            otherBlockChain.addTransactionToQueue(testTransaction)
-        }
+        make9Blocks(otherBlockChain)
+
+
         assert(otherBlockChain.isValid())
 
         myBlockChain.replaceChain(otherBlockChain)
@@ -106,17 +113,9 @@ class BlockChainTest {
         val myBlockChain = BlockChain()
         val otherBlockChain = BlockChain()
 
-        myBlockChain.stakeCoins(acctA, 99.0.toFloat())
-        myBlockChain.stakeCoins(acctB, 1.toFloat())
-
-        otherBlockChain.stakeCoins(acctA, 99.0.toFloat())
-        otherBlockChain.stakeCoins(acctB, 1.toFloat())
-
         assert(myBlockChain.size == 1)
 
-        repeat(45){
-            otherBlockChain.addTransactionToQueue(testTransaction)
-        }
+        make9Blocks(otherBlockChain)
 
         otherBlockChain.blockList[3].transactions[1].to = "ILLEGAL_NEW_RECIPIENT"
         myBlockChain.replaceChain(otherBlockChain)
@@ -125,4 +124,40 @@ class BlockChainTest {
 
     }
 
+
+    @Test
+    fun `staking coins actually costs money`(){
+        val blockChain = BlockChain()
+        getMoney()
+
+        blockChain.stakeCoins(acctA, 10.toFloat())
+
+        assert(acctA.balance == 90.toFloat())
+    }
+
+    @Test
+    fun `pay previous minter`(){
+        val testBlockChain = BlockChain()
+        val testAccount = Account()
+        testAccount.balance = 5.toFloat()
+
+        testBlockChain.stakeCoins(testAccount, 5.toFloat())
+        assert(testAccount.balance == 0.toFloat())
+
+        repeat(5){
+            testBlockChain.addTransactionToQueue(testTransaction)
+        }
+        val testAccountB = Account()
+        testAccountB.balance = 5.toFloat()
+        testBlockChain.stakeCoins(testAccountB, 3.toFloat())
+        assert(testAccountB.balance == 2.toFloat())
+
+        repeat(5){
+            testBlockChain.addTransactionToQueue(testTransaction)
+        }
+
+        assert(testAccount.balance == 10.toFloat() && testAccountB.balance == 2.toFloat())
+
+
+    }
 }
