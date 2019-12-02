@@ -1,5 +1,7 @@
 package edu.drexel.se575
 
+import java.security.PrivateKey
+
 /**
  * The thing we're chaining together. There's not much more to it than that.
  * @property transactions -- the transactions data
@@ -21,6 +23,10 @@ class Block(var transactions: Array<Transaction>, var validator: String,
     return "Block $hash; Minted at: $timeBlockMinted; by $validator. " +
             "Data: ${transactions.joinToString(separator = ",") { "\n\t$it" }}"
   }
+}
+
+fun createSignatureForNewBlock(transactions: Array<Transaction>, validatorPrivate: PrivateKey): String?{
+   return sign(transactions.joinToString { "$it " }, validatorPrivate)
 }
 
 fun mintStartingBlock(): Block{

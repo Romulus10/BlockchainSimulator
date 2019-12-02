@@ -11,7 +11,7 @@ import java.security.PublicKey
 class Account {
     var address: String
     var weight: Int = 0
-    private val privateKey: PrivateKey
+    val privateKey: PrivateKey
     val publicKey: PublicKey
 
     init {
