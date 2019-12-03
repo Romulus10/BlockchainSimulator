@@ -2,6 +2,8 @@ package edu.drexel.se575
 
 import io.javalin.Javalin
 
+data class TransactionProposal(val to: String, val fr: String, val data: String)
+
 fun main() {
     println("Starting node...")
 
@@ -14,11 +16,9 @@ fun main() {
     }
 
     app.post("/client/transaction/create") { ctx ->
-        val toAddress = ctx.formParam("to")
-        val frAddress = ctx.formParam("from")
-        val data = ctx.formParam("data")
-        val fr = blockChain.interpreter.accountList.filter { it.address == frAddress }[0]
-        val tx = Transaction(toAddress!!, frAddress!!, data!!, fr.publicKey)
+        val proposal = ctx.body<TransactionProposal>()
+        val fr = blockChain.interpreter.accountList.filter { it.address == proposal.to }[0]
+        val tx = Transaction(proposal.to, proposal.fr, proposal.data, fr.publicKey)
         tx.sign(fr.privateKey)
         blockChain.addTransactionToQueue(tx)
         p2pserver.sendTransaction(tx)
