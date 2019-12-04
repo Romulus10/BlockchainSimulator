@@ -1,3 +1,3 @@
 export interface Account {
-    publicKey: string;
+    address: string;
 }

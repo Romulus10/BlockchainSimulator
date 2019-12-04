@@ -12,7 +12,7 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let account of accounts$ | async">
-      {{account.publicKey}}
+      Address: {{account.address}}
     </ion-item>
   </ion-list>
   <!--

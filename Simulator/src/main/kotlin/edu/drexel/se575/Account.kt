@@ -1,5 +1,8 @@
 package edu.drexel.se575
 
+import kotlinx.serialization.*
+import kotlinx.serialization.internal.HexConverter
+import kotlinx.serialization.internal.StringDescriptor
 import java.security.PrivateKey
 import java.security.PublicKey
 
@@ -8,7 +11,7 @@ import java.security.PublicKey
  * @property address The unique address of the account.
  * @property balance The amount of coin held by this account.
  */
-class Account {
+@Serializable class Account {
     var address: String
     var balance: Float = 0.toFloat()
     val privateKey: PrivateKey
@@ -23,6 +26,23 @@ class Account {
         val keyPair = generateKeyPair()
         privateKey = keyPair!!.private
         publicKey = keyPair.public
+    }
+
+    @Serializer(forClass = Account::class)
+    companion object : KSerializer<Account> {
+        override val descriptor: SerialDescriptor
+            get() = StringDescriptor.withName("Account")
+
+        override fun serialize(encoder: Encoder, obj: Account) {
+            val compositeOutput = encoder.beginStructure(descriptor)
+            compositeOutput.encodeStringElement(descriptor, 0, HexConverter.printHexBinary(obj.address.toByteArray()))
+            compositeOutput.encodeStringElement(descriptor, 1, HexConverter.printHexBinary(obj.balance.toString().toByteArray()))
+            compositeOutput.endStructure(descriptor)
+        }
+
+        override fun deserialize(decoder: Decoder): Account {
+            return Account()
+        }
     }
 }
 
