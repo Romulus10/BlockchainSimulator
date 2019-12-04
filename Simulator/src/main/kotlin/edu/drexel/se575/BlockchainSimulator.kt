@@ -10,9 +10,7 @@ import io.javalin.Javalin
 fun main() {
     println("Starting node...")
 
-    val app = Javalin.create{
-            it.enableCorsForAllOrigins()
-    }.start(7000)
+    val app = Javalin.create().start(7000)
     val blockChain = BlockChain()
 
     app.get("/") { ctx ->
@@ -28,8 +26,7 @@ fun main() {
         ctx.status(200)
     }
 
-    app.get("/client/account_create/create") {
-        print("creating account..")
+    app.post("/client/account/create") {
         val acct = Account()
         blockChain.interpreter.accountList.add(acct)
         val tx = Transaction(acct.address, acct.address, "act", acct.publicKey)

@@ -15,7 +15,7 @@ export class AccountService {
   ) { }
 
   createAccount(): Observable<any> {
-    const url = `${this.baseUrl}/client/account_create/create`;
+    const url = `${this.baseUrl}/client/account/create`;
     return this.http.get(url).pipe(
       tap(res => console.log('account created', res))
     )
