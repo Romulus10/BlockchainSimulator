@@ -15,6 +15,9 @@
       <ion-col *ngFor="let block of blocks | async">
         <app-block [block]="block"></app-block>
       </ion-col>
+      <ion-col>
+        <ion-button>Add Block</ion-button>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

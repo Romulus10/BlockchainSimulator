@@ -17,4 +17,8 @@ export class HomePage {
     this.blocks = this.blockService.getAllBlocks();
   }
 
+  onAddButtonClick() {
+
+  }
+
 }
