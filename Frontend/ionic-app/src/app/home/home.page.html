@@ -11,6 +11,9 @@
 
 <ion-content>
   <ion-grid padding>
+    <ion-button color="success">Create Account</ion-button>
+  </ion-grid>
+  <ion-grid padding>
     <ion-row>
       <ion-col *ngFor="let block of blocks | async">
         <app-block [block]="block"></app-block>
