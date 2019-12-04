@@ -1,6 +1,5 @@
 package edu.drexel.se575
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.HexConverter
 import kotlinx.serialization.internal.StringDescriptor
