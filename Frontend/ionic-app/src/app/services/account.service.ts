@@ -20,4 +20,12 @@ export class AccountService {
       tap(res => console.log('account created', res))
     )
   }
+
+  listAccounts(): Observable<Account[]> {
+    const url = `${this.baseUrl}/client/account/list`;
+    return this.http.get<Account[]>(url).pipe(
+      tap(res => console.log('account list', res))
+    )
+
+  }
 }

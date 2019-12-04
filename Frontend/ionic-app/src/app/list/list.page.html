@@ -11,12 +11,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
-      </div>
+    <ion-item *ngFor="let account of accounts$ | async">
+      {{account.publicKey}}
     </ion-item>
   </ion-list>
   <!--
