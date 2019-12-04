@@ -22,6 +22,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-serialization:1.3.31")
 	implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
 	implementation("org.slf4j:slf4j-simple:1.8.0-beta4")
+	compile("com.fasterxml.jackson.core:jackson-databind:2.10.0")
+
 }
 
 tasks.test {
