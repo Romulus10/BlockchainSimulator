@@ -7,7 +7,9 @@ data class TransactionProposal(val to: String, val fr: String, val data: String)
 fun main() {
     println("Starting node...")
 
-    val app = Javalin.create().start(7000)
+    val app = Javalin.create{
+            it.enableCorsForAllOrigins()
+    }.start(7000)
     val blockChain = BlockChain()
     val p2pserver = P2PServer(BlockChain(), 5001)
 
@@ -25,7 +27,8 @@ fun main() {
         ctx.status(200)
     }
 
-    app.post("/client/account/create") {
+    app.get("/client/account_create/create") {
+        print("creating account..")
         val acct = Account()
         blockChain.interpreter.accountList.add(acct)
         val tx = Transaction(acct.address, acct.address, "act", acct.publicKey)
@@ -71,6 +74,7 @@ fun main() {
 
     app.get("/client/account/:address") { ctx ->
         val address = ctx.pathParam("address")
+        print(address)
         ctx.json(blockChain.interpreter.accountList.filter { it.address == address }[0])
     }
 
@@ -79,7 +83,7 @@ fun main() {
         ctx.json(blockChain.interpreter.accountList.filter { it.address == address }[0].balance)
     }
 
-    app.get("/client/account/list") { ctx ->
+    app.get("/client/account_list/list") { ctx ->
         ctx.json(blockChain.listKnownAddresses())
     }
 
