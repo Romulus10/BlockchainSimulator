@@ -46,7 +46,9 @@ fun main() {
 
     app.get("/client/transaction/list_by_block/:block_id") { ctx ->
         val blockID = ctx.pathParam("block_id")
-        ctx.json(blockChain.blockList.filter { it.signature == blockID }[0].transactions)
+        val mapper = ObjectMapper()
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+        ctx.json(mapper.writeValueAsString(blockChain.blockList.filter { it.signature == blockID }[0].transactions))
     }
 
     app.get("/client/transaction/get/:tx_id") { ctx ->
@@ -57,7 +59,9 @@ fun main() {
                 txList.add(it)
             }
         }
-        ctx.json(txList.filter { txID == it.signature }[0])
+        val mapper = ObjectMapper()
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+        ctx.result(mapper.writeValueAsString(txList.filter { txID == it.signature }[0]))
     }
 
     app.get("/client/block/list") { ctx ->
