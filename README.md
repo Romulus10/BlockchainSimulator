@@ -6,6 +6,7 @@ A blockchain simulator for SE 575
 cd Simulator
 ./gradlew run
 ```
+(If both JRE and JDK are installed, gradle may use java from the JRE. Ensure JAVA_HOME is set to path of JDK.)
 
 # Frontend
 ## Installation
