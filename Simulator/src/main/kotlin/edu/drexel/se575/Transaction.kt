@@ -1,12 +1,13 @@
 package edu.drexel.se575
 
+import kotlinx.serialization.*
 import java.security.PrivateKey
 import java.security.PublicKey
 
 /**
  *
  */
-class Transaction(var to: String, private var fr: String, var data: String, var publicKey: PublicKey) {
+@Serializable class Transaction(var to: String, private var fr: String, var data: String, var publicKey: PublicKey) {
     var signature: String? = null
     var blockHeight: Int? = null
     var blockNumber: Int? = null
