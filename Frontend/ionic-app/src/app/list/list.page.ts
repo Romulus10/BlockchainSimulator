@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AccountService } from '../services/account.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -7,33 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListPage implements OnInit {
   private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
-  public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor() {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  public accounts$: Observable<Account[]>;
+
+  constructor(
+    protected accountService: AccountService,
+    protected toastCtrl: ToastController,
+  ) {
+    this.accounts$ = accountService.listAccounts();
+  }
+
+  async onCreateAccountClick() {
+    this.accountService.createAccount().subscribe();
+    const toast = await this.toastCtrl.create({
+      message: 'Account created, refresh the page to see all accounts!',
+      duration: 1500,
+      position: 'top',
+    })
+    toast.present();
   }
 
   ngOnInit() {
   }
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
-  // }
 }
