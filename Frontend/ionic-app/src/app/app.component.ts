@@ -20,6 +20,11 @@ export class AppComponent {
       title: 'Accounts',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'Transactions',
+      url: '/transactions',
+      icon: 'pricetags'
     }
   ];
 

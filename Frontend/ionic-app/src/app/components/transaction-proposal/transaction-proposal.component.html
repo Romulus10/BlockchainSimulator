@@ -1,0 +1,26 @@
+<ion-content padding>
+  <h1>Create new transaction</h1>
+  <ion-list>
+    <ion-item>
+      <ion-label>From:</ion-label>
+      <ion-select [(ngModel)]="proposal.fr">
+        <ion-select-option [value]="account.address" *ngFor="let account of allAccounts$ | async">
+          {{account.address}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>To:</ion-label>
+      <ion-select [(ngModel)]="proposal.to">
+        <ion-select-option [disabled]="account.address === proposal.fr" [value]="account.address" *ngFor="let account of allAccounts$ | async">
+          {{account.address}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Data:</ion-label>
+      <ion-input [(ngModel)]="proposal.data"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button color="success" (click)="onSubmit()">Submit</ion-button>
+</ion-content>

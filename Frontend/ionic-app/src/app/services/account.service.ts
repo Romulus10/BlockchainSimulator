@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { NodeAccount } from 'src/models/account';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +22,17 @@ export class AccountService {
     )
   }
 
-  listAccounts(): Observable<Account[]> {
+  stake(account: NodeAccount, amount: number) {
+    const url = `${this.baseUrl}/client/account/stake/${account.address}/${amount}`;
+    return this.http.get(url).pipe(
+      tap(res => console.log('staked successful', res))
+    )
+
+  }
+
+  listAccounts(): Observable<NodeAccount[]> {
     const url = `${this.baseUrl}/client/account/list`;
-    return this.http.get<Account[]>(url).pipe(
+    return this.http.get<NodeAccount[]>(url).pipe(
       tap(res => console.log('account list', res))
     )
 

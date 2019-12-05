@@ -1,11 +1,10 @@
 package edu.drexel.se575
 
-val TX_PER_BLOCK = 5
+const val TX_PER_BLOCK = 5
 
 class TransactionQueue(private var blockChain: BlockChain) {
 
-    private var transactions = arrayListOf<Transaction>()
-   
+    var transactions = arrayListOf<Transaction>()
 
     fun addTransaction(transaction: Transaction) {
         transactions.add(transaction)
@@ -16,8 +15,8 @@ class TransactionQueue(private var blockChain: BlockChain) {
     }
 
     fun getTransactionsForBlock(): Array<Transaction>{
-        val blockTx: Array<Transaction> = transactions.take(5).toTypedArray()
-        repeat(5){
+        val blockTx: Array<Transaction> = transactions.take(TX_PER_BLOCK).toTypedArray()
+        repeat(TX_PER_BLOCK){
             transactions.removeAt(0)
         }
         return blockTx

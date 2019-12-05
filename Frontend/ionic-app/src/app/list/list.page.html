@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      List
+      Accounts
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,9 +15,18 @@
   </ion-grid>
 
   <ion-list>
-    <ion-item *ngFor="let account of accounts$ | async">
-      Address: {{account.address}}
-    </ion-item>
+    <ion-card *ngFor="let account of accounts$ | async; let i = index">
+      <ion-card-header>Account {{i}}</ion-card-header>
+      <ion-card-content>
+        <p>Address: {{account.address}}</p>
+        <p>Balance: {{account.balance}}</p>
+
+        <ion-item>
+          <ion-input [(ngModel)]="stakes[account.address]" type="number" placeholder="Enter amount to stake..."></ion-input>
+          <ion-button slot="end" (click)="onStakeButtonClick(account)">Stake</ion-button>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
   </ion-list>
   <!--
     <div *ngIf="selectedItem" padding>
