@@ -143,24 +143,25 @@ class BlockChainTest {
     fun `pay previous minter`() {
         val testBlockChain = BlockChain()
         val testAccount = Account()
-        testAccount.balance = 5.toFloat()
+        //testAccount.balance = 5.toFloat()
+        val initialBalance = testAccount.balance
 
-        testBlockChain.stakeCoins(testAccount, 5.toFloat())
+        testBlockChain.stakeCoins(testAccount, initialBalance)
         assert(testAccount.balance == 0.toFloat())
 
-        repeat(5) {
+        repeat(TX_PER_BLOCK) {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
         val testAccountB = Account()
-        testAccountB.balance = 5.toFloat()
-        testBlockChain.stakeCoins(testAccountB, 3.toFloat())
+        //testAccountB.balance = 5.toFloat()
+        testBlockChain.stakeCoins(testAccountB, initialBalance - 2)
         assert(testAccountB.balance == 2.toFloat())
 
-        repeat(5) {
+        repeat(TX_PER_BLOCK) {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
 
-        assert(testAccount.balance == 10.toFloat() && testAccountB.balance == 2.toFloat())
+        assert(testAccount.balance == initialBalance + TX_PER_BLOCK && testAccountB.balance == 2.toFloat())
     }
 
     @Test
