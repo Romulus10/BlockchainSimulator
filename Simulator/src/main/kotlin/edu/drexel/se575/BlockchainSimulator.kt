@@ -67,10 +67,10 @@ fun main() {
     }
 
     app.get("/client/block/list") { ctx ->
-//        val mapper = ObjectMapper()
-//        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+        val mapper = ObjectMapper()
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
         println(blockChain.blockList.size)
-        ctx.json(blockChain.blockList)
+        ctx.json(mapper.writeValueAsString(blockChain.blockList))
     }
 
     app.get("/client/block/get/:block_id") { ctx ->
