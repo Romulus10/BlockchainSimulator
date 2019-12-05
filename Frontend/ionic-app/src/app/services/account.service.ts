@@ -22,6 +22,14 @@ export class AccountService {
     )
   }
 
+  stake(account: NodeAccount, amount: number) {
+    const url = `${this.baseUrl}/client/account/stake/${account.address}/${amount}`;
+    return this.http.get(url).pipe(
+      tap(res => console.log('staked successful', res))
+    )
+
+  }
+
   listAccounts(): Observable<NodeAccount[]> {
     const url = `${this.baseUrl}/client/account/list`;
     return this.http.get<NodeAccount[]>(url).pipe(

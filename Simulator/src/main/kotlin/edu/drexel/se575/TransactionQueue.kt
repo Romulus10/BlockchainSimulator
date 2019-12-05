@@ -15,8 +15,8 @@ class TransactionQueue(private var blockChain: BlockChain) {
     }
 
     fun getTransactionsForBlock(): Array<Transaction>{
-        val blockTx: Array<Transaction> = transactions.take(5).toTypedArray()
-        repeat(5){
+        val blockTx: Array<Transaction> = transactions.take(TX_PER_BLOCK).toTypedArray()
+        repeat(TX_PER_BLOCK){
             transactions.removeAt(0)
         }
         return blockTx

@@ -46,7 +46,7 @@ class BlockChainTest {
         blockChain.stakeCoins(acctB, 1.toFloat())
 
         //start with one block from empty init
-        repeat(4) {
+        repeat(TX_PER_BLOCK - 1) {
             blockChain.addTransactionToQueue(testTransaction)
             assert(blockChain.size == chainInitialSize)
         }
@@ -57,7 +57,7 @@ class BlockChainTest {
         chainInitialSize = blockChain.size
         
         //repeat above just to be extra confident
-        repeat(4) {
+        repeat(TX_PER_BLOCK - 1 ) {
             blockChain.addTransactionToQueue(testTransaction)
             assert(blockChain.size == chainInitialSize)
         }
@@ -90,7 +90,8 @@ class BlockChainTest {
         val myPhonyTransaction = Transaction("me", "you", "transfers 1 MILLION dollars!",
                 generateKeyPair()!!.public)
 
-        blockChain.blockList[4].transactions[1] = myPhonyTransaction
+        blockChain.blockList[4].transactions[0] = myPhonyTransaction
+        blockChain.blockList[4].transactions[0] = myPhonyTransaction
 
         assert(!blockChain.isValid())
     }
@@ -122,7 +123,7 @@ class BlockChainTest {
 
         make9Blocks(otherBlockChain)
 
-        otherBlockChain.blockList[3].transactions[1].to = "ILLEGAL_NEW_RECIPIENT"
+        otherBlockChain.blockList[3].transactions[0].to = "ILLEGAL_NEW_RECIPIENT"
         myBlockChain.replaceChain(otherBlockChain)
 
         assert(myBlockChain.size == 1)
