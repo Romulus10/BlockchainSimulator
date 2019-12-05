@@ -16,7 +16,7 @@
 
   <ion-list>
     <ion-item *ngFor="let account of accounts$ | async">
-      Address: {{account.address}}
+      Address: {{account.address}} | Balance: {{account.balance}}
     </ion-item>
   </ion-list>
   <!--

@@ -5,7 +5,15 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import kotlinx.serialization.*
 import io.javalin.Javalin
 
-@Serializable data class TransactionProposal(val to: String, val fr: String, val data: String)
+@Serializable data class TransactionProposal(val to: String?, val fr: String?, val data: String?)
+
+fun transactionProposalFromJson(json: String): TransactionProposal {
+    val jsonBroken = json.split(',')
+    val to = jsonBroken[0].split(':')[1].replace("}", "").replace("\"", "")
+    val fr = jsonBroken[1].split(':')[1].replace("}", "").replace("\"", "")
+    val data = jsonBroken[2].split(':')[1].replace("}", "").replace("\"", "")
+    return TransactionProposal(to, fr, data)
+}
 
 fun main() {
     println("Starting node...")
@@ -20,12 +28,11 @@ fun main() {
     }
 
     app.post("/client/transaction/create") { ctx ->
-        val proposal = ctx.body<TransactionProposal>()
+        val proposal = transactionProposalFromJson(ctx.body())
         val fr = blockChain.interpreter.accountList.filter { it.address == proposal.to }[0]
-        val tx = Transaction(proposal.to, proposal.fr, proposal.data, fr.publicKey)
+        val tx = Transaction(proposal.to!!, proposal.fr!!, proposal.data!!, fr.publicKey)
         tx.sign(fr.privateKey)
-        val result = blockChain.addTransactionToQueue(tx)
-        ctx.json(result)
+        blockChain.addTransactionToQueue(tx)
     }
 
     app.post("/client/account/create") {
@@ -38,19 +45,24 @@ fun main() {
 
     app.get("/client/transaction/list") { ctx ->
         val txList = ArrayList<Transaction>()
+        blockChain.listTransactionQueue().forEach {
+            txList.add(it)
+        }
         blockChain.blockList.forEach { b ->
             b.transactions.forEach {
                 txList.add(it)
             }
         }
-        ctx.json(txList)
+        val mapper = ObjectMapper()
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+        ctx.result(mapper.writeValueAsString(txList))
     }
 
     app.get("/client/transaction/list_by_block/:block_id") { ctx ->
         val blockID = ctx.pathParam("block_id")
         val mapper = ObjectMapper()
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
-        ctx.json(mapper.writeValueAsString(blockChain.blockList.filter { it.signature == blockID }[0].transactions))
+        ctx.result(mapper.writeValueAsString(blockChain.blockList.filter { it.signature == blockID }[0].transactions))
     }
 
     app.get("/client/transaction/get/:tx_id") { ctx ->

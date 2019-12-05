@@ -4,8 +4,7 @@ const val TX_PER_BLOCK = 5
 
 class TransactionQueue(private var blockChain: BlockChain) {
 
-    private var transactions = arrayListOf<Transaction>()
-   
+    var transactions = arrayListOf<Transaction>()
 
     fun addTransaction(transaction: Transaction) {
         transactions.add(transaction)
