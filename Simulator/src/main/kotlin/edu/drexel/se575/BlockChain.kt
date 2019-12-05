@@ -78,6 +78,20 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         return true
     }
 
+    fun findBrokenBlock(): Int? {
+        for (i in 1 until (blockList.size - 1)) {
+            val isValid = checkBlock(blockList[i], blockList[i - 1])
+            if (!isValid) {
+                return i
+            }
+        }
+        return null
+    }
+
+    fun messUpBlock(indexToKill: Int) {
+        blockList[indexToKill].transactions[0].data = "BAD DATA MUAHAHA"
+    }
+
     fun replaceChain(newBlockChain: BlockChain): Boolean {
         if (newBlockChain.isValid()) {
             this.blockList = newBlockChain.blockList

@@ -158,4 +158,25 @@ class BlockChainTest {
 
         assert(testAccount.balance == 10.toFloat() && testAccountB.balance == 2.toFloat())
     }
+
+    @Test
+    fun `mess up block`() {
+        val testBlockChain = BlockChain()
+        val testAccount = Account()
+        testAccount.balance = 5.toFloat()
+
+        testBlockChain.stakeCoins(testAccount, 5.toFloat())
+        assert(testAccount.balance == 0.toFloat())
+
+
+        make9Blocks(testBlockChain)
+
+        assert(testBlockChain.isValid())
+
+        testBlockChain.messUpBlock(2)
+        assert(!testBlockChain.isValid())
+
+        val bad = testBlockChain.findBrokenBlock()
+        assert(bad == 2)
+    }
 }

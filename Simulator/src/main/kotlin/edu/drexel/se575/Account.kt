@@ -13,7 +13,7 @@ import java.security.PublicKey
  */
 @Serializable class Account {
     var address: String
-    var balance: Float = 0.toFloat()
+    var balance: Float = 100.toFloat()
     val privateKey: PrivateKey
     val publicKey: PublicKey
 

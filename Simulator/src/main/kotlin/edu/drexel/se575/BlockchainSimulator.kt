@@ -92,4 +92,8 @@ fun main() {
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
         ctx.result(mapper.writeValueAsString(blockChain.listKnownAddresses()))
     }
+
+    app.get("/client/block/clobber/:index") { ctx ->
+        blockChain.messUpBlock(ctx.pathParam("index").toInt())
+    }
 }
