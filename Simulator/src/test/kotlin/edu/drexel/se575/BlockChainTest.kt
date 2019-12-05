@@ -39,6 +39,8 @@ class BlockChainTest {
     fun `test 5 transactions makes a block`() {
         val blockChain = BlockChain()
         getMoney()
+        
+        var chainInitialSize = blockChain.size
 
         blockChain.stakeCoins(acctA, 99.0.toFloat())
         blockChain.stakeCoins(acctB, 1.toFloat())
@@ -46,19 +48,21 @@ class BlockChainTest {
         //start with one block from empty init
         repeat(4) {
             blockChain.addTransactionToQueue(testTransaction)
-            assert(blockChain.size == 1)
+            assert(blockChain.size == chainInitialSize)
         }
         //fifth transaction creates a block
         blockChain.addTransactionToQueue(testTransaction)
-        assert(blockChain.size == 2)
+        assert(blockChain.size == chainInitialSize + 1)
 
+        chainInitialSize = blockChain.size
+        
         //repeat above just to be extra confident
         repeat(4) {
             blockChain.addTransactionToQueue(testTransaction)
-            assert(blockChain.size == 2)
+            assert(blockChain.size == chainInitialSize)
         }
         blockChain.addTransactionToQueue(testTransaction)
-        assert(blockChain.size == 3)
+        assert(blockChain.size == chainInitialSize + 1)
     }
 
 
