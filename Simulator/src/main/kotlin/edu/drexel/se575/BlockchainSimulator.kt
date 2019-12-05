@@ -101,11 +101,8 @@ fun main() {
         val address = ctx.pathParam("address")
         val amount = ctx.pathParam("amount")
         var usrAccount: Account? = null
-        for (account in blockChain.interpreter.accountList){
-            if (account.address == address){
-                usrAccount = account
-                break
-            }
+        blockChain.interpreter.accountList.filter {
+            usrAccount == it.account
         }
         blockChain.stakeCoins(usrAccount!!, amount.toFloat())
     }
