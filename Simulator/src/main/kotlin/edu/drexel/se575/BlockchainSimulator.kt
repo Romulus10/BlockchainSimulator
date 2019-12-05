@@ -10,7 +10,9 @@ import io.javalin.Javalin
 fun main() {
     println("Starting node...")
 
-    val app = Javalin.create().start(7000)
+    val app = Javalin.create {
+        it.enableCorsForAllOrigins()
+    }.start(7000)
     val blockChain = BlockChain()
 
     app.get("/") { ctx ->

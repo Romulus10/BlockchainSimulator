@@ -19,9 +19,6 @@ export class HomePage {
     this.blocks = this.blockService.getAllBlocks();
   }
 
-  onCreateAccountClick() {
-    this.accountService.createAccount().subscribe();
-  }
 
   onAddButtonClick() {
 
