@@ -13,7 +13,7 @@ cd Simulator
 
 ## Frontend
 ### Installation
-1. Install node.js if is not already installed. https://nodejs.org/en/download/
+1. Install node.js if it is not already installed. https://nodejs.org/en/download/
 2. `npm install -g ionic`
 3. `cd Frontend/ionic-app`
 4. `npm install`
