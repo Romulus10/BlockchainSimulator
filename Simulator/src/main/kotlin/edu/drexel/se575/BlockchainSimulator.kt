@@ -118,7 +118,7 @@ fun main() {
         var usrAccount: Account? = null
         usrAccount = blockChain.interpreter.accountList.filter {
             address == it.address
-        }
+        }.single()
         blockChain.stakeCoins(usrAccount!!, amount.toFloat())
     }
 
