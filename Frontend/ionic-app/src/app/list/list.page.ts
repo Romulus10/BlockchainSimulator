@@ -12,6 +12,7 @@ import { NodeAccount } from 'src/models/account';
 export class ListPage implements OnInit {
   private selectedItem: any;
   public accounts$: Observable<NodeAccount[]>;
+  public stakes: Map<string, number> = new Map<string, number>();
 
   constructor(
     protected accountService: AccountService,
@@ -28,6 +29,11 @@ export class ListPage implements OnInit {
       position: 'top',
     })
     toast.present();
+  }
+
+  async onStakeButtonClick(account: NodeAccount) {
+    console.log(this.stakes)
+    this.accountService.stake(account, this.stakes[account.address]).subscribe();
   }
 
   ngOnInit() {
