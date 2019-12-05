@@ -10,13 +10,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid padding>
+    <ion-button color="success" (click)="onCreateAccountClick()">Create New Account</ion-button>
+  </ion-grid>
+
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
-      </div>
+    <ion-item *ngFor="let account of accounts$ | async">
+      Address: {{account.address}}
     </ion-item>
   </ion-list>
   <!--

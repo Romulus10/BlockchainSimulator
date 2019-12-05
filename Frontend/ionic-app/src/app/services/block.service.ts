@@ -3,12 +3,14 @@ import { Block } from 'src/models/block';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlockService {
-  private readonly baseUrl: string = 'http://localhost:7000';
+  private readonly baseUrl: string = environment.baseUrl;
+
   constructor(
     protected http: HttpClient,
   ) { }
