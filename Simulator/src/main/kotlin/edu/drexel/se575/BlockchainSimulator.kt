@@ -100,7 +100,7 @@ fun main() {
     app.get("/client/account/stake/:address/:amount"){ ctx ->
         val address = ctx.pathParam("address")
         val amount = ctx.pathParam("amount")
-        var usrAccount: Account? = null
+        val usrAccount: Account? = null
         blockChain.interpreter.accountList.filter {
             usrAccount == it
         }
