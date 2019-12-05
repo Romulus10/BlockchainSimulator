@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AccountService } from '../services/account.service';
 import { ToastController } from '@ionic/angular';
+import { NodeAccount } from 'src/models/account';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +11,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class ListPage implements OnInit {
   private selectedItem: any;
-  public accounts$: Observable<Account[]>;
+  public accounts$: Observable<NodeAccount[]>;
 
   constructor(
     protected accountService: AccountService,
