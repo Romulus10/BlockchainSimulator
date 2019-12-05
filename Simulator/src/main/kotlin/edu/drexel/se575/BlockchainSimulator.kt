@@ -67,6 +67,9 @@ fun main() {
     }
 
     app.get("/client/block/list") { ctx ->
+//        val mapper = ObjectMapper()
+//        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+        println(blockChain.blockList.size)
         ctx.json(blockChain.blockList)
     }
 
@@ -100,6 +103,8 @@ fun main() {
     app.get("/client/account/stake/:address/:amount"){ ctx ->
         val address = ctx.pathParam("address")
         val amount = ctx.pathParam("amount")
+        println(address)
+        println(amount)
         var usrAccount: Account? = null
         for (account in blockChain.interpreter.accountList){
             if (account.address == address){

@@ -8,14 +8,15 @@ class TransactionQueue(private var blockChain: BlockChain) {
     fun addTransaction(transaction: Transaction) {
         transactions.add(transaction)
 
-        if (transactions.size > 4) {
+        if (transactions.size > 1) {
+            println("minting")
             blockChain.mintBlockIfOverFiveTx()
         }
     }
 
     fun getTransactionsForBlock(): Array<Transaction>{
-        val blockTx: Array<Transaction> = transactions.take(5).toTypedArray()
-        repeat(5){
+        val blockTx: Array<Transaction> = transactions.take(1).toTypedArray()
+        repeat(1){
             transactions.removeAt(0)
         }
         return blockTx
