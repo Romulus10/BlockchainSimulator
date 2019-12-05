@@ -153,7 +153,7 @@ class BlockChainTest {
         testBlockChain.stakeCoins(testAccountB, 3.toFloat())
         assert(testAccountB.balance == 2.toFloat())
 
-        repeat(10) {
+        repeat(5) {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
 

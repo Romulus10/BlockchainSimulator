@@ -30,6 +30,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     fun addTransactionToQueue(transaction: Transaction) {
         interpreter.runContract(transaction.data)
         transactionQueue.addTransaction(transaction)
+        mintBlockIfOverFiveTx()
     }
 
     fun mintBlockIfOverFiveTx() {
