@@ -115,9 +115,10 @@ fun main() {
     app.get("/client/account/stake/:address/:amount"){ ctx ->
         val address = ctx.pathParam("address")
         val amount = ctx.pathParam("amount")
-        val usrAccount = blockChain.interpreter.accountList.filter {
-            it.address == address
-        }[0]
+        var usrAccount: Account? = null
+        usrAccount = blockChain.interpreter.accountList.filter {
+            address == it.address
+        }
         blockChain.stakeCoins(usrAccount!!, amount.toFloat())
     }
 
