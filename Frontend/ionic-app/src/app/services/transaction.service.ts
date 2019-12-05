@@ -29,11 +29,4 @@ export class TransactionService {
       tap(res => console.log('transaction list', res))
     )
   }
-
-  listTransactions(): Observable<Transaction[]> {
-    const url = `${this.baseUrl}/client/transaction/list`;
-    return this.http.get<Transaction[]>(url).pipe(
-      tap(res => console.log('transaction list', res))
-    )
-  }
 }
