@@ -54,7 +54,7 @@ class BlockChainTest {
         blockChain.addTransactionToQueue(testTransaction)
         assert(blockChain.size == chainInitialSize + 1)
 
-        chainInitialSize = blockchain.size
+        chainInitialSize = blockChain.size
         
         //repeat above just to be extra confident
         repeat(4) {
