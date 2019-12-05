@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TransactionProposal } from 'src/models/transactionProposal';
 import { AccountService } from 'src/app/services/account.service';
 import { Observable } from 'rxjs';
-import { Account } from 'src/models/account';
+import { NodeAccount } from 'src/models/account';
 import { PopoverController } from '@ionic/angular';
 
 @Component({
@@ -17,7 +17,7 @@ export class TransactionProposalComponent implements OnInit {
     data: '',
   }
 
-  allAccounts$: Observable<Account[]>
+  allAccounts$: Observable<NodeAccount[]>
 
   constructor(
     protected accountService: AccountService,
