@@ -1,6 +1,7 @@
 package edu.drexel.se575
 
 import edu.drexel.se575.contract.Interpreter
+import java.lang.NumberFormatException
 
 
 class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
@@ -19,8 +20,12 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         }
     }
 
-    private fun payPreviousMinter(){
-        if (stakeManager.currentStake != null){
+    fun listTransactionQueue(): ArrayList<Transaction> {
+        return transactionQueue.transactions
+    }
+
+    private fun payPreviousMinter() {
+        if (stakeManager.currentStake != null) {
             val accountToPay = stakeManager.currentStake!!.account
             accountToPay.balance += stakeManager.currentStake!!.coinAmountStaked
             accountToPay.balance += blockList.last().transactions.size
@@ -28,13 +33,22 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun addTransactionToQueue(transaction: Transaction) {
-        interpreter.runContract(transaction.data)
+        // interpreter.runContract(transaction.data)
         transactionQueue.addTransaction(transaction)
-        mintBlockIfOverFiveTx()
+        try {
+            transferAccountValue(
+                    interpreter.accountList.toArray().filterIsInstance<Account?>().toTypedArray().apply { if (size != interpreter.accountList.size) throw Exception() },
+                    transaction.to,
+                    transaction.fr,
+                    transaction.data.toInt()
+            )
+        } catch (ex: NumberFormatException) {
+            println(ex.toString())
+        }
     }
 
     fun mintBlockIfOverFiveTx() {
-        if (stakeManager.hasNoCoinsStaked()){
+        if (stakeManager.hasNoCoinsStaked()) {
             return
         }
         payPreviousMinter()
@@ -108,7 +122,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         return finalCastArray
     }
 
-    fun stakeCoins(account: Account, amount: Float){
+    fun stakeCoins(account: Account, amount: Float) {
         stakeManager.stakeCoins(account, amount)
     }
 }

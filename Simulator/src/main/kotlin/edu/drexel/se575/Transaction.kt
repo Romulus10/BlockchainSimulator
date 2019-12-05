@@ -7,7 +7,7 @@ import java.security.PublicKey
 /**
  *
  */
-@Serializable class Transaction(var to: String, private var fr: String, var data: String, var publicKey: PublicKey) {
+@Serializable class Transaction(var to: String, var fr: String, var data: String, var publicKey: PublicKey) {
     var signature: String? = null
     var blockHeight: Int? = null
     var blockNumber: Int? = null

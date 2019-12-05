@@ -39,6 +39,8 @@ class BlockChainTest {
     fun `test 5 transactions makes a block`() {
         val blockChain = BlockChain()
         getMoney()
+        
+        var chainInitialSize = blockChain.size
 
         blockChain.stakeCoins(acctA, 99.0.toFloat())
         blockChain.stakeCoins(acctB, 1.toFloat())
@@ -46,19 +48,21 @@ class BlockChainTest {
         //start with one block from empty init
         repeat(4) {
             blockChain.addTransactionToQueue(testTransaction)
-            assert(blockChain.size == 1)
+            assert(blockChain.size == chainInitialSize)
         }
         //fifth transaction creates a block
         blockChain.addTransactionToQueue(testTransaction)
-        assert(blockChain.size == 2)
+        assert(blockChain.size == chainInitialSize + 1)
 
+        chainInitialSize = blockChain.size
+        
         //repeat above just to be extra confident
         repeat(4) {
             blockChain.addTransactionToQueue(testTransaction)
-            assert(blockChain.size == 2)
+            assert(blockChain.size == chainInitialSize)
         }
         blockChain.addTransactionToQueue(testTransaction)
-        assert(blockChain.size == 3)
+        assert(blockChain.size == chainInitialSize + 1)
     }
 
 
@@ -140,24 +144,25 @@ class BlockChainTest {
     fun `pay previous minter`() {
         val testBlockChain = BlockChain()
         val testAccount = Account()
-        testAccount.balance = 5.toFloat()
+        //testAccount.balance = 5.toFloat()
+        val initialBalance = testAccount.balance
 
-        testBlockChain.stakeCoins(testAccount, 5.toFloat())
+        testBlockChain.stakeCoins(testAccount, initialBalance)
         assert(testAccount.balance == 0.toFloat())
 
-        repeat(5) {
+        repeat(TX_PER_BLOCK) {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
         val testAccountB = Account()
-        testAccountB.balance = 5.toFloat()
-        testBlockChain.stakeCoins(testAccountB, 3.toFloat())
+        //testAccountB.balance = 5.toFloat()
+        testBlockChain.stakeCoins(testAccountB, initialBalance - 2)
         assert(testAccountB.balance == 2.toFloat())
 
-        repeat(5) {
+        repeat(TX_PER_BLOCK) {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
 
-        assert(testAccount.balance == 10.toFloat() && testAccountB.balance == 2.toFloat())
+        assert(testAccount.balance == initialBalance + TX_PER_BLOCK && testAccountB.balance == 2.toFloat())
     }
 
     @Test
