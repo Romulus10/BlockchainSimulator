@@ -46,7 +46,7 @@ class BlockChainTest {
         blockChain.stakeCoins(acctB, 1.toFloat())
 
         //start with one block from empty init
-        repeat(4) {
+        repeat(TX_PER_BLOCK - 1) {
             blockChain.addTransactionToQueue(testTransaction)
             assert(blockChain.size == chainInitialSize)
         }
@@ -57,7 +57,7 @@ class BlockChainTest {
         chainInitialSize = blockChain.size
         
         //repeat above just to be extra confident
-        repeat(4) {
+        repeat(TX_PER_BLOCK - 1 ) {
             blockChain.addTransactionToQueue(testTransaction)
             assert(blockChain.size == chainInitialSize)
         }
