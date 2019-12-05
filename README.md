@@ -1,7 +1,7 @@
 # BlockchainSimulator
 A blockchain simulator for SE 575
 
-Open two terminal windows. In one, run the Simulator build, and in the other run the Frontend installation process. Once both are operational, navigate a web browser to [http://localhost:8100](http://localhost:8100).
+Open two terminal windows. In one, run the Simulator build, and in the other run the Frontend installation process, both of which are explained below. Once both are operational, navigate in a web browser to [http://localhost:8100](http://localhost:8100).
 
 ## Simulator
 ### Build
@@ -13,7 +13,7 @@ cd Simulator
 
 ## Frontend
 ### Installation
-1. Install node.js if you have not. https://nodejs.org/en/download/
+1. Install node.js if is not already installed. https://nodejs.org/en/download/
 2. `npm install -g ionic`
 3. `cd Frontend/ionic-app`
 4. `npm install`
