@@ -32,8 +32,6 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         transactionQueue.addTransaction(transaction)
     }
 
-
-
     fun mintBlockIfOverFiveTx() {
         if (stakeManager.hasNoCoinsStaked()){
             return
