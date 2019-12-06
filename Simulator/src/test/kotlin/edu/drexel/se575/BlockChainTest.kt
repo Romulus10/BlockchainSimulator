@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 class BlockChainTest {
 
     private val keyPair = generateKeyPair()
-    private val testTransaction = Transaction("To string", "From string", "My data string", keyPair!!.public)
+    private val testTransaction = Transaction("To string", "From string", 5.toFloat(), keyPair!!.public)
 
     private val acctA = Account()
     private val acctB = Account()
@@ -87,7 +87,7 @@ class BlockChainTest {
         assert(blockChain.size == 10)
 
 
-        val myPhonyTransaction = Transaction("me", "you", "transfers 1 MILLION dollars!",
+        val myPhonyTransaction = Transaction("me", "you", 5.toFloat(),
                 generateKeyPair()!!.public)
 
         blockChain.blockList[4].transactions[0] = myPhonyTransaction
@@ -138,6 +138,7 @@ class BlockChainTest {
         blockChain.stakeCoins(acctA, 10.toFloat())
 
         assert(acctA.balance == 90.toFloat())
+        assert (acctA.currentStakedCoins == 10.toFloat())
     }
 
     @Test
@@ -149,6 +150,7 @@ class BlockChainTest {
 
         testBlockChain.stakeCoins(testAccount, initialBalance)
         assert(testAccount.balance == 0.toFloat())
+        assert(testAccount.currentStakedCoins == initialBalance)
 
         repeat(TX_PER_BLOCK) {
             testBlockChain.addTransactionToQueue(testTransaction)
@@ -162,7 +164,9 @@ class BlockChainTest {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
 
-        assert(testAccount.balance == initialBalance + TX_PER_BLOCK && testAccountB.balance == 2.toFloat())
+        assert(testAccount.balance == initialBalance + TX_PER_BLOCK &&
+                testAccount.currentStakedCoins == 0.toFloat() &&
+                testAccountB.balance == 2.toFloat())
     }
 
     @Test

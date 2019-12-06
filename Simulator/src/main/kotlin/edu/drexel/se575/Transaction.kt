@@ -7,15 +7,15 @@ import java.security.PublicKey
 /**
  *
  */
-@Serializable class Transaction(var to: String, var fr: String, var data: String, var publicKey: PublicKey) {
+@Serializable class Transaction(var to: String, var fr: String, var data: Float, var publicKey: PublicKey) {
     var signature: String? = null
-    var blockHeight: Int? = null
-    var blockNumber: Int? = null
+    private var timeSigned: Long? = null
 
     /**
      *
      */
     fun sign(privateKey: PrivateKey) {
+        timeSigned = System.currentTimeMillis()
         signature = sign(this.toString(), privateKey)
     }
 
@@ -24,21 +24,5 @@ import java.security.PublicKey
      */
     fun verify(): Boolean = verify(this.toString(), this.signature, this.publicKey)
 
-    override fun toString(): String = "To: %s, From: %s, pubkey: %s, Data: %s, Block Height: %s, Block Number: %s".format(to, fr, publicKey, data, blockHeight, blockNumber)
+    override fun toString(): String = "To: %s, From: %s, pubkey: %s, Data: %s, Signed time: %s".format(to, fr, publicKey, data, timeSigned)
 }
-
-fun transactionFromString(accountList: ArrayList<Account>, tx: String): Transaction {
-    val transactionArrayList = ArrayList<String>()
-    val arr = tx.split(',')
-    arr.forEach {
-        val x = it.split(':')[1].drop(1)
-        transactionArrayList.add(x)
-    }
-    val t = Transaction(transactionArrayList[0], transactionArrayList[1], transactionArrayList[4], getKey(accountList, transactionArrayList[1]))
-    t.signature = transactionArrayList[3]
-    t.blockHeight = transactionArrayList[5].toInt()
-    t.blockNumber = transactionArrayList[6].toInt()
-    return t
-}
-
-fun getKey(accountList: ArrayList<Account>, address: String): PublicKey = accountList.filter { it.address == address }[0].publicKey

@@ -31,6 +31,7 @@ class StakeManager {
             throw IllegalArgumentException("Account has insufficient funds to stake $coins coins")
         } else {
             account.balance -= coins
+            account.currentStakedCoins = coins
             val existingStake = findStake(account)
             if (existingStake == null) {
                 accountStakeAmounts.add(Stake(account, coins))
