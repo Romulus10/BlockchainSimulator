@@ -24,14 +24,6 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         return transactionQueue.transactions
     }
 
-    private fun payPreviousMinter() {
-        if (stakeManager.currentStake != null) {
-            val accountToPay = stakeManager.currentStake!!.account
-            val amountToPay = stakeManager.currentStake!!.coinAmountStaked + blockList.last().transactions.size
-            accountToPay.balance += amountToPay
-            accountToPay.currentStakedCoins -= amountToPay - blockList.last().transactions.size
-        }
-    }
 
     fun addTransactionToQueue(transaction: Transaction) {
         transactionQueue.addTransaction(transaction)
@@ -51,7 +43,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         if (stakeManager.hasNoCoinsStaked()) {
             return
         }
-        payPreviousMinter()
+        val paymentTransaction = payPreviousMinter()
 
         val validator = stakeManager.chooseValidator()
         val blockTx = transactionQueue.getTransactionsForBlock()
@@ -60,6 +52,10 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
         stakeManager.updateCurrentStake(validator)
         blockList.add(newBlock)
+
+        if (paymentTransaction != null) {
+            this.addTransactionToQueue(paymentTransaction)
+        }
     }
 
 
@@ -116,6 +112,20 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun stakeCoins(account: Account, amount: Float) {
+        this.addTransactionToQueue(Transaction("Staked Coins", account.address, amount, account.publicKey))
         stakeManager.stakeCoins(account, amount)
     }
+
+
+    private fun payPreviousMinter(): Transaction? {
+        if (stakeManager.currentStake != null) {
+            val accountToPay = stakeManager.currentStake!!.account
+            val amountToPay = stakeManager.currentStake!!.coinAmountStaked + blockList.last().transactions.size
+            accountToPay.balance += amountToPay
+            accountToPay.currentStakedCoins -= amountToPay - blockList.last().transactions.size
+            return Transaction(accountToPay.address, "Stake Payout", amountToPay, accountToPay.publicKey)
+        }
+        return null
+    }
+
 }
