@@ -1,6 +1,8 @@
 package edu.drexel.se575
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import java.lang.IllegalArgumentException
 
 class BlockChainTest {
 
@@ -139,6 +141,20 @@ class BlockChainTest {
 
         assert(acctA.balance == 90.toFloat())
         assert (acctA.currentStakedCoins == 10.toFloat())
+    }
+
+
+    @Test
+    fun `no over staking`(){
+        val blockChain = BlockChain()
+        getMoney()
+        val amountToStake = acctA.balance
+        blockChain.stakeCoins(acctA, amountToStake)
+        assertThrows<IllegalArgumentException> { blockChain.stakeCoins(acctA, amountToStake) }
+        assertThrows<IllegalArgumentException> { blockChain.stakeCoins(acctA, 0.toFloat()) }
+        assert(acctA.currentStakedCoins == amountToStake)
+        assert(blockChain.listTransactionQueue().size == 1)
+
     }
 
     @Test
