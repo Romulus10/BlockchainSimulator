@@ -36,7 +36,7 @@ class StakeManager {
             if (existingStake == null) {
                 accountStakeAmounts.add(Stake(account, coins))
             } else {
-                existingStake.updateStakedCoinAmount(coins)
+                existingStake.addToStakedCoinAmount(coins)
             }
         }
     }
@@ -71,9 +71,9 @@ class Stake(val account: Account, var coinAmountStaked: Float) {
         return (System.currentTimeMillis() - timeCoinsStaked.toFloat()) * coinAmountStaked
     }
 
-    fun updateStakedCoinAmount(amount: Float) {
+    fun addToStakedCoinAmount(amount: Float) {
         timeCoinsStaked = System.currentTimeMillis()
-        coinAmountStaked = amount
+        coinAmountStaked += amount
     }
 
 }
