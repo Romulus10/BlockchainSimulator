@@ -221,7 +221,9 @@ class BlockChainTest {
             testBlockChain.stakeCoins(testAccountB, 1.toFloat())
         }
 
-        assert(testAccountA.balance == initialBalance - oneStakePortion + stakeReward)
+        val result = initialBalance - oneStakePortion + stakeReward
+
+        assert((testAccountA.balance *100).toInt() == (result * 100).toInt())
 
 
     }
@@ -244,8 +246,8 @@ class BlockChainTest {
         testBlockChain.messUpBlock(2)
         assert(!testBlockChain.isValid())
 
-        val bad = testBlockChain.findBrokenBlock()
-        assert(testBlockChain.blockList[2].isValid == false)
+        testBlockChain.findBrokenBlock()
+        assert(!testBlockChain.blockList[2].isValid)
 
         for(i in 2 until testBlockChain.size){
             assert(!testBlockChain.blockList[i].isValid)
