@@ -244,8 +244,8 @@ class BlockChainTest {
         testBlockChain.messUpBlock(2)
         assert(!testBlockChain.isValid())
 
-        val bad = testBlockChain.findBrokenBlock()
-        assert(testBlockChain.blockList[2].isValid == false)
+        testBlockChain.findBrokenBlock()
+        assert(!testBlockChain.blockList[2].isValid)
 
         for(i in 2 until testBlockChain.size){
             assert(!testBlockChain.blockList[i].isValid)
