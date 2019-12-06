@@ -12,8 +12,8 @@ import { PopoverController } from '@ionic/angular';
 })
 export class TransactionProposalComponent implements OnInit {
   proposal: TransactionProposal = {
-    fr: '',
     to: '',
+    fr: '',
     data: '',
   }
 
