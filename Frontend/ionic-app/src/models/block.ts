@@ -5,4 +5,5 @@ export interface Block {
     signature: string;
     previousBlockHash: string;
     hash: string;
+    isValid: boolean;
 }
