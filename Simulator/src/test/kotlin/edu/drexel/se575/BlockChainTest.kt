@@ -143,6 +143,18 @@ class BlockChainTest {
         assert (acctA.currentStakedCoins == 10.toFloat())
     }
 
+    @Test
+    fun `staking coins adds`() {
+        val blockChain = BlockChain()
+        getMoney()
+
+        repeat(2) {
+            blockChain.stakeCoins(acctA, 10.toFloat())
+        }
+
+        assert(acctA.balance == 80.toFloat())
+        assert(acctA.currentStakedCoins == 20.toFloat())
+    }
 
     @Test
     fun `no over staking`(){
