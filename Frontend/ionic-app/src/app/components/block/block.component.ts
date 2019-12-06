@@ -9,6 +9,7 @@ import { Block } from 'src/models/block';
 })
 export class BlockComponent implements OnInit {
   @Input() block: Block;
+  viewTransactions: boolean;
 
   constructor(
   ) { }
