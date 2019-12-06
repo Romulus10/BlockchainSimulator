@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class BlockService {
 
   constructor(
     protected http: HttpClient,
+    public navCtrl: NavController,
   ) { }
 
   public getAllBlocks(): Observable<Block[]> {

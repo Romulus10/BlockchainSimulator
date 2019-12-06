@@ -7,6 +7,7 @@ import { TransactionService } from '../services/transaction.service';
 import { ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Transaction } from 'src/models/transaction';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-transactions',
@@ -20,6 +21,7 @@ export class TransactionsPage implements OnInit {
     protected popoverCtrl: PopoverController,
     protected transactionService: TransactionService,
     protected toastCtrl: ToastController,
+    public navCtrl: NavController,
   ) {
     this.transactions$ = transactionService.listTransactions();
   }
@@ -35,8 +37,18 @@ export class TransactionsPage implements OnInit {
     popover.onDidDismiss().then((detail: OverlayEventDetail<TransactionProposal>) => {
       console.log(detail);
       this.transactionService.createTransaction(detail.data).subscribe();
+      this.transactions$ = this.transactionService.listTransactions();
+      this.openToast("Transaction sent. Refresh the page.");
     })
-    this.transactions$ = this.transactionService.listTransactions();
+  }
+
+  async openToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      position: 'top',
+      message: msg,
+      duration: 3000,
+    })
+    await toast.present();
   }
 
 }
