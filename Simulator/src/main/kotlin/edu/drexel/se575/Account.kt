@@ -50,10 +50,10 @@ import java.security.PublicKey
 fun transferAccountValue(accountList: Array<Account?>, to: String?, fr: String?, amount: Int) {
     accountList.forEach {
         it!! // Assert that this object is not null.
-        if (it.address == to) {
+        if (it.address == to && fr != "Stake Payout") {
             it.balance += amount
         }
-        if (it.address == fr) {
+        if (it.address == fr && to != "Staked Coins") {
             it.balance -= amount
         }
     }

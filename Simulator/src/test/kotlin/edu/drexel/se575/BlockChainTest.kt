@@ -188,6 +188,25 @@ class BlockChainTest {
         assert(testBlockChain.listTransactionQueue().size == 1)
     }
 
+
+    @Test
+    fun `pay previous minter sum`() {
+        val testBlockChain = BlockChain()
+        val testAccountA = Account()
+        val testAccountB = Account()
+        val initialBalance = testAccountA.balance
+
+        repeat(5){
+            testBlockChain.stakeCoins(testAccountA, initialBalance/5)
+        }
+
+        //TODO actually test
+
+
+
+    }
+
+
     @Test
     fun `mess up block`() {
         val testBlockChain = BlockChain()
