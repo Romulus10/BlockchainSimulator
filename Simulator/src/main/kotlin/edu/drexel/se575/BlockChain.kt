@@ -1,10 +1,10 @@
 package edu.drexel.se575
 
 import edu.drexel.se575.contract.Interpreter
-import java.lang.NumberFormatException
 
 const val STAKE_PAYOUT = "Stake Payout"
 const val STAKED_COINS = "Staked Coins"
+
 
 class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
@@ -67,8 +67,10 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
     private fun checkBlock(blockInvestigating: Block, previousBlock: Block): Boolean {
         if (previousBlock.hash != blockInvestigating.previousBlockHash) {
+            previousBlock.isValid = false
             return false
         }
+        previousBlock.isValid = true
         return true
     }
 
@@ -139,4 +141,3 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
 }
-

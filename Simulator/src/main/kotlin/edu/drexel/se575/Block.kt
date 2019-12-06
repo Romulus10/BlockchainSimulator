@@ -1,6 +1,6 @@
 package edu.drexel.se575
 
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
 import java.security.PrivateKey
 
 /**
@@ -18,6 +18,7 @@ import java.security.PrivateKey
   private val timeBlockMinted: Long = System.currentTimeMillis()
   val hash
     get() = Util.sha1("$timeBlockMinted$previousBlockHash${transactions.joinToString { it.toString() }}")
+    var isValid = true
 
 
   fun print(): String = "Block $hash; Minted at: $timeBlockMinted; by $validator. " +
