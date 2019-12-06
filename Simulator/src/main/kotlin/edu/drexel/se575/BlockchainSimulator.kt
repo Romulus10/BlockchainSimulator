@@ -79,7 +79,6 @@ fun main() {
     app.get("/client/block/list") { ctx ->
         val mapper = ObjectMapper()
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
-        println(blockChain.blockList.size)
         ctx.json(mapper.writeValueAsString(blockChain.blockList))
     }
 
