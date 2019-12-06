@@ -2,8 +2,8 @@ package edu.drexel.se575
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
-import kotlinx.serialization.*
 import io.javalin.Javalin
+import kotlinx.serialization.Serializable
 
 @Serializable data class TransactionProposal(val to: String?, val fr: String?, val data: String?)
 
@@ -102,6 +102,7 @@ fun main() {
     app.get("/client/account/list") { ctx ->
         val mapper = ObjectMapper()
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+        blockChain.isValid()
         ctx.result(mapper.writeValueAsString(blockChain.listKnownAddresses()))
     }
 
@@ -112,7 +113,7 @@ fun main() {
     app.get("/client/account/stake/:address/:amount"){ ctx ->
         val address = ctx.pathParam("address")
         val amount = ctx.pathParam("amount")
-        var usrAccount = blockChain.interpreter.accountList.filter {
+        val usrAccount = blockChain.interpreter.accountList.filter {
             address == it.address
         }[0]
         blockChain.stakeCoins(usrAccount, amount.toFloat())
