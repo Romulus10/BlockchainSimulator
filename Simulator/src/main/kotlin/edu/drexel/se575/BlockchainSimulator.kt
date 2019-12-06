@@ -119,4 +119,11 @@ fun main() {
         blockChain.stakeCoins(usrAccount, amount.toFloat())
     }
 
+    app.get("/client/block/get_if_valid") { ctx ->
+        if (!blockChain.isValid()) {
+            ctx.result("{ 'valid': false, 'invalid_block': ${blockChain.findBrokenBlock()} }")
+        } else {
+            ctx.result("{ 'valid': true, 'invalid_block': null }")
+        }
+    }
 }
