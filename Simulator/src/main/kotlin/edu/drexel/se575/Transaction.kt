@@ -11,6 +11,7 @@ import java.security.PublicKey
     var signature: String? = null
     var blockHeight: Int? = null
     var blockNumber: Int? = null
+    var timeCreated = System.currentTimeMillis()
 
     /**
      *
@@ -24,7 +25,7 @@ import java.security.PublicKey
      */
     fun verify(): Boolean = verify(this.toString(), this.signature, this.publicKey)
 
-    override fun toString(): String = "To: %s, From: %s, pubkey: %s, Data: %s, Signed time: %s".format(to, fr, publicKey, data, System.currentTimeMillis())
+    override fun toString(): String = "To: %s, From: %s, pubkey: %s, Data: %s, Signed time: %s".format(to, fr, publicKey, data, timeCreated)
 }
 
 fun transactionFromString(accountList: ArrayList<Account>, tx: String): Transaction {
