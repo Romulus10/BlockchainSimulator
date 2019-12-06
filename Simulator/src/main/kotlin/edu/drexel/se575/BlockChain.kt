@@ -112,7 +112,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun stakeCoins(account: Account, amount: Float) {
-        this.addTransactionToQueue(Transaction(account.address, "Staked Coins", amount, account.publicKey))
+        this.addTransactionToQueue(Transaction("Staked Coins", account.address, amount, account.publicKey))
         stakeManager.stakeCoins(account, amount)
     }
 
