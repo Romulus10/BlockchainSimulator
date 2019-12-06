@@ -46,7 +46,7 @@ class BlockChainTest {
         blockChain.stakeCoins(acctB, 1.toFloat())
 
         //start with one block from empty init
-        repeat(TX_PER_BLOCK - 1) {
+        repeat(TX_PER_BLOCK - blockChain.listTransactionQueue().size - 1) {
             blockChain.addTransactionToQueue(testTransaction)
             assert(blockChain.size == chainInitialSize)
         }
@@ -57,7 +57,7 @@ class BlockChainTest {
         chainInitialSize = blockChain.size
         
         //repeat above just to be extra confident
-        repeat(TX_PER_BLOCK - 1 ) {
+        repeat(TX_PER_BLOCK - blockChain.listTransactionQueue().size - 1 ) {
             blockChain.addTransactionToQueue(testTransaction)
             assert(blockChain.size == chainInitialSize)
         }
@@ -152,7 +152,8 @@ class BlockChainTest {
         assert(testAccount.balance == 0.toFloat())
         assert(testAccount.currentStakedCoins == initialBalance)
 
-        repeat(TX_PER_BLOCK) {
+        //staking coins is a transaction, do the rest to make a block
+        repeat(TX_PER_BLOCK - 1) {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
         val testAccountB = Account()
@@ -160,13 +161,15 @@ class BlockChainTest {
         testBlockChain.stakeCoins(testAccountB, initialBalance - 2)
         assert(testAccountB.balance == 2.toFloat())
 
-        repeat(TX_PER_BLOCK) {
+        repeat(TX_PER_BLOCK - 1) {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
 
         assert(testAccount.balance == initialBalance + TX_PER_BLOCK &&
                 testAccount.currentStakedCoins == 0.toFloat() &&
                 testAccountB.balance == 2.toFloat())
+
+        assert(testBlockChain.listTransactionQueue().size == 1)
     }
 
     @Test
