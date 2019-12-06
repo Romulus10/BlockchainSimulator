@@ -39,16 +39,4 @@ internal class TransactionTest {
         assert(!isValid)
     }
 
-    @Test
-    fun `retrieve a correct transaction from a given string`() {
-        val encoder: Base64.Encoder = Base64.getEncoder()
-        val acctList = ArrayList<Account>()
-        acctList.add(Account())
-        val initialTransaction = Transaction(acctList[0].address, acctList[0].address, 5.toFloat(), acctList[0].publicKey)
-        initialTransaction.sign(acctList[0].privateKey)
-        val keyString = "To: ${acctList[0].address}, From: ${acctList[0].address}, pubkey: ${encoder.encodeToString(acctList[0].publicKey.encoded)}, Signature: ${initialTransaction.signature}, Data: pay $100, Block Height: 1, Block Number: 1"
-        val secondTransaction = transactionFromString(acctList, keyString)
-        assertEquals(initialTransaction.signature, secondTransaction.signature)
-    }
-
 }
