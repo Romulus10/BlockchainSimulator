@@ -38,5 +38,4 @@ internal class TransactionTest {
         val isValid = forgedTransaction.verify()
         assert(!isValid)
     }
-
 }
