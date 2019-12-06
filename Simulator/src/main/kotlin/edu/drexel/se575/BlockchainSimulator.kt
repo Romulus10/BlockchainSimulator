@@ -9,8 +9,8 @@ import kotlinx.serialization.Serializable
 
 fun transactionProposalFromJson(json: String): TransactionProposal {
     val jsonBroken = json.split(',')
-    val to = jsonBroken[0].split(':')[1].replace("}", "").replace("\"", "")
-    val fr = jsonBroken[1].split(':')[1].replace("}", "").replace("\"", "")
+    val fr = jsonBroken[0].split(':')[1].replace("}", "").replace("\"", "")
+    val to = jsonBroken[1].split(':')[1].replace("}", "").replace("\"", "")
     val data = jsonBroken[2].split(':')[1].replace("}", "").replace("\"", "")
     return TransactionProposal(to, fr, data)
 }
