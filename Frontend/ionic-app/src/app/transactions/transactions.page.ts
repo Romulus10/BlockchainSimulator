@@ -7,6 +7,7 @@ import { TransactionService } from '../services/transaction.service';
 import { ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Transaction } from 'src/models/transaction';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-transactions',
@@ -20,6 +21,7 @@ export class TransactionsPage implements OnInit {
     protected popoverCtrl: PopoverController,
     protected transactionService: TransactionService,
     protected toastCtrl: ToastController,
+    public navCtrl: NavController,
   ) {
     this.transactions$ = transactionService.listTransactions();
   }
@@ -37,6 +39,7 @@ export class TransactionsPage implements OnInit {
       this.transactionService.createTransaction(detail.data).subscribe();
     })
     this.transactions$ = this.transactionService.listTransactions();
+    location.reload();
   }
 
 }
