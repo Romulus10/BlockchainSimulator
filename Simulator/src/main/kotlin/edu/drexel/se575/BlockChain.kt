@@ -115,6 +115,11 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         if (account.balance < amount){
             throw IllegalArgumentException("Insufficient account balance for stake!")
         }
+
+        if (amount <= 0 ){
+            throw java.lang.IllegalArgumentException("Stake must be greater than 0")
+        }
+
         this.addTransactionToQueue(Transaction("Staked Coins", account.address, amount, account.publicKey))
         stakeManager.stakeCoins(account, amount)
     }

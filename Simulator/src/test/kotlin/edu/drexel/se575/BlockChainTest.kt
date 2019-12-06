@@ -150,7 +150,8 @@ class BlockChainTest {
         getMoney()
         val amountToStake = acctA.balance
         blockChain.stakeCoins(acctA, amountToStake)
-        assertThrows<IllegalArgumentException> {  blockChain.stakeCoins(acctA, amountToStake) }
+        assertThrows<IllegalArgumentException> { blockChain.stakeCoins(acctA, amountToStake) }
+        assertThrows<IllegalArgumentException> { blockChain.stakeCoins(acctA, 0.toFloat()) }
         assert(acctA.currentStakedCoins == amountToStake)
         assert(blockChain.listTransactionQueue().size == 1)
 
