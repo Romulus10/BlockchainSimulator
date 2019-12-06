@@ -30,7 +30,7 @@ fun main() {
     app.post("/client/transaction/create") { ctx ->
         val proposal = transactionProposalFromJson(ctx.body())
         val fr = blockChain.interpreter.accountList.filter { it.address == proposal.to }[0]
-        val tx = Transaction(proposal.to!!, proposal.fr!!, proposal.data!!, fr.publicKey)
+        val tx = Transaction(proposal.to!!, proposal.fr!!, proposal.data!!.toFloat(), fr.publicKey)
         tx.sign(fr.privateKey)
         blockChain.addTransactionToQueue(tx)
     }
@@ -38,9 +38,7 @@ fun main() {
     app.post("/client/account/create") {
         val acct = Account()
         blockChain.interpreter.accountList.add(acct)
-        val tx = Transaction(acct.address, acct.address, "act", acct.publicKey)
-        tx.sign(acct.privateKey)
-        blockChain.addTransactionToQueue(tx)
+
     }
 
     app.get("/client/transaction/list") { ctx ->

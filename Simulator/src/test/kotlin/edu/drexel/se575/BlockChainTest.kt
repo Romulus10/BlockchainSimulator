@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 class BlockChainTest {
 
     private val keyPair = generateKeyPair()
-    private val testTransaction = Transaction("To string", "From string", "My data string", keyPair!!.public)
+    private val testTransaction = Transaction("To string", "From string", 5.toFloat(), keyPair!!.public)
 
     private val acctA = Account()
     private val acctB = Account()
@@ -87,7 +87,7 @@ class BlockChainTest {
         assert(blockChain.size == 10)
 
 
-        val myPhonyTransaction = Transaction("me", "you", "transfers 1 MILLION dollars!",
+        val myPhonyTransaction = Transaction("me", "you", 5.toFloat(),
                 generateKeyPair()!!.public)
 
         blockChain.blockList[4].transactions[0] = myPhonyTransaction

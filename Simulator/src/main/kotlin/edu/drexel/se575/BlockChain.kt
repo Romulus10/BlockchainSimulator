@@ -33,7 +33,6 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun addTransactionToQueue(transaction: Transaction) {
-        // interpreter.runContract(transaction.data)
         transactionQueue.addTransaction(transaction)
         try {
             transferAccountValue(
@@ -71,13 +70,6 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         if (previousBlock.hash != blockInvestigating.previousBlockHash) {
             return false
         }
-        try {
-            blockInvestigating.transactions.forEach {
-                interpreter.runContract(it.data)
-            }
-        } catch (ex: Exception) {
-            return false
-        }
         return true
     }
 
@@ -102,7 +94,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun messUpBlock(indexToKill: Int) {
-        blockList[indexToKill].transactions[0].data = "BAD DATA MUAHAHA"
+        blockList[indexToKill].transactions[0].data =  blockList[indexToKill].transactions[0].data + 1
     }
 
     fun replaceChain(newBlockChain: BlockChain): Boolean {
