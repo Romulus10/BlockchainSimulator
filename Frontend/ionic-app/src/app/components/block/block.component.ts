@@ -10,7 +10,6 @@ import { Block } from 'src/models/block';
 export class BlockComponent implements OnInit {
   @Input() block: Block;
   @Input() index: number;
-  @Input() isValid: boolean;
   viewTransactions: boolean;
 
   constructor(
