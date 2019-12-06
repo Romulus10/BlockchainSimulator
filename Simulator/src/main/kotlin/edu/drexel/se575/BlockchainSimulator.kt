@@ -79,7 +79,6 @@ fun main() {
     app.get("/client/block/list") { ctx ->
         val mapper = ObjectMapper()
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
-        println(blockChain.blockList.size)
         ctx.json(mapper.writeValueAsString(blockChain.blockList))
     }
 
@@ -120,4 +119,11 @@ fun main() {
         blockChain.stakeCoins(usrAccount, amount.toFloat())
     }
 
+    app.get("/client/block/get_if_valid") { ctx ->
+        if (!blockChain.isValid()) {
+            ctx.result("{ 'valid': false, 'invalid_block': ${blockChain.findBrokenBlock()} }")
+        } else {
+            ctx.result("{ 'valid': true, 'invalid_block': null }")
+        }
+    }
 }
