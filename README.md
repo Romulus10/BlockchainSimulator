@@ -21,6 +21,7 @@ cd Simulator
 6. Website will be hosted on `localhost:8100`
 
 # Smart Contract Language
+## (NOTE: NOT INTEGRATED. TRANSACTION DATA IS LIMITED TO INTEGER VALUES FOR CURRENCY TRANSFER)
 In order to carry out general computing and value-moving requirements, including the proof-of-stake algorithm, the blockchain simulator will include a simple smart contract system. The smart contracts will provide functions for simple, proof-of-concept programming structures, and will allow for transferring tokens between accounts.
 
 ## Syntax
