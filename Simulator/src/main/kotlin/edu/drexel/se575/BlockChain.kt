@@ -129,7 +129,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         if (stakeManager.currentStake != null) {
             val accountToPay = stakeManager.currentStake!!.account
             val amountToPay = stakeManager.currentStake!!.coinAmountStaked + blockList.last().transactions.size
-            accountToPay.balance += amountToPay
+//            accountToPay.balance += amountToPay
             accountToPay.currentStakedCoins -= amountToPay - blockList.last().transactions.size
             return Transaction(accountToPay.address, "Stake Payout", amountToPay, accountToPay.publicKey)
         }
