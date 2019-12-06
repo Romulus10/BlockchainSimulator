@@ -12,7 +12,8 @@
 <ion-content>
   <ion-grid padding>
     <ion-row>
-      <ion-col *ngFor="let block of blocks | async">
+      <ion-col *ngFor="let block of blocks | async; let i = index">
+        <p style="text-align: center;">Block {{i}}</p>
         <app-block [block]="block"></app-block>
       </ion-col>
     </ion-row>
