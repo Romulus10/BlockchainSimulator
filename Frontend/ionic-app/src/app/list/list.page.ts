@@ -46,6 +46,10 @@ export class ListPage implements OnInit {
       this.openToast('Stake amount must be > 0.');
       return;
     }
+    if (proposedStake == undefined) {
+      this.openToast('Enter a stake amount.');
+      return;
+    }
     this.stakes[account.address] = proposedStake;
     this.accountService.stake(account, this.stakes[account.address]).subscribe(_ => {
       this.openToast('Stake successful!');
