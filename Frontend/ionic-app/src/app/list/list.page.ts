@@ -27,7 +27,7 @@ export class ListPage implements OnInit {
   async onCreateAccountClick() {
     this.accountService.createAccount().subscribe();
     const toast = await this.toastCtrl.create({
-      message: 'Account created!',
+      message: 'Account created. Refresh the page.',
       duration: 1500,
       position: 'top',
     })
@@ -56,7 +56,6 @@ export class ListPage implements OnInit {
       return;
     });
     this.accountService.listAccounts();
-    location.reload();
   }
 
   ngOnInit() {

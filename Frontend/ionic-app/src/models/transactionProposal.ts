@@ -1,5 +1,5 @@
 export interface TransactionProposal {
-    fr: string;
     to: string;
+    fr: string;
     data: string;
 }
