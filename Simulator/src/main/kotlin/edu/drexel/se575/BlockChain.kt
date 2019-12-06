@@ -2,6 +2,9 @@ package edu.drexel.se575
 
 import edu.drexel.se575.contract.Interpreter
 
+const val STAKE_PAYOUT = "Stake Payout"
+const val STAKED_COINS = "Staked Coins"
+
 
 class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
@@ -121,7 +124,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
             throw java.lang.IllegalArgumentException("Stake must be greater than 0")
         }
 
-        this.addTransactionToQueue(Transaction("Staked Coins", account.address, amount, account.publicKey))
+        this.addTransactionToQueue(Transaction(STAKED_COINS, account.address, amount, account.publicKey))
         stakeManager.stakeCoins(account, amount)
     }
 
@@ -132,7 +135,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
             val amountToPay = stakeManager.currentStake!!.coinAmountStaked + blockList.last().transactions.size
             accountToPay.balance += amountToPay
             accountToPay.currentStakedCoins -= amountToPay - blockList.last().transactions.size
-            return Transaction(accountToPay.address, "Stake Payout", amountToPay, accountToPay.publicKey)
+            return Transaction(accountToPay.address, STAKE_PAYOUT, amountToPay, accountToPay.publicKey)
         }
         return null
     }
