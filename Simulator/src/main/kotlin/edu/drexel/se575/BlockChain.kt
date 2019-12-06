@@ -33,7 +33,6 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun addTransactionToQueue(transaction: Transaction) {
-        // interpreter.runContract(transaction.data)
         transactionQueue.addTransaction(transaction)
         try {
             transferAccountValue(
@@ -69,13 +68,6 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
 
     private fun checkBlock(blockInvestigating: Block, previousBlock: Block): Boolean {
         if (previousBlock.hash != blockInvestigating.previousBlockHash) {
-            return false
-        }
-        try {
-            blockInvestigating.transactions.forEach {
-                interpreter.runContract(it.data.toString())
-            }
-        } catch (ex: Exception) {
             return false
         }
         return true
