@@ -15,12 +15,12 @@ class StakeManager {
         return null
     }
 
-    fun updateCurrentStake(account: Account){
+    fun updateCurrentStake(account: Account) {
         currentStake = findStake(account)
         accountStakeAmounts.remove(currentStake)
     }
 
-    fun hasNoCoinsStaked(): Boolean{
+    fun hasNoCoinsStaked(): Boolean {
         return accountStakeAmounts.size <= 0
     }
 

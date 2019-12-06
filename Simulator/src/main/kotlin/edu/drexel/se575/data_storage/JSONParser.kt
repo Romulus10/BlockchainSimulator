@@ -11,7 +11,7 @@ import java.security.spec.RSAPublicKeySpec
 
 val BLOCK_CHAIN_STORAGE_FILE = File("blockChain.txt")
 
-class PublicKeyDeserializer : JsonDeserializer<Any>{
+class PublicKeyDeserializer : JsonDeserializer<Any> {
 
     @Throws(JsonParseException::class)
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Any {

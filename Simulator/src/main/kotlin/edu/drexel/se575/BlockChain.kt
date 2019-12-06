@@ -80,7 +80,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         for (i in 1 until (blockList.size - 1)) {
             val isValid = checkBlock(blockList[i], blockList[i - 1])
             if (!isValid) {
-                for (j in i until blockList.size){
+                for (j in i until blockList.size) {
                     blockList[j].isValid = false
                 }
                 return false
@@ -100,7 +100,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun messUpBlock(indexToKill: Int) {
-        blockList[indexToKill].transactions[0].data =  blockList[indexToKill].transactions[0].data + 1
+        blockList[indexToKill].transactions[0].data = blockList[indexToKill].transactions[0].data + 1
     }
 
     fun replaceChain(newBlockChain: BlockChain): Boolean {
@@ -121,11 +121,11 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun stakeCoins(account: Account, amount: Float) {
-        if (account.balance < amount){
+        if (account.balance < amount) {
             throw IllegalArgumentException("Insufficient account balance for stake!")
         }
 
-        if (amount <= 0 ){
+        if (amount <= 0) {
             throw java.lang.IllegalArgumentException("Stake must be greater than 0")
         }
         stakeManager.stakeCoins(account, amount)

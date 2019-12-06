@@ -5,25 +5,29 @@ import org.junit.jupiter.api.Test
 
 internal class AccountTest {
 
-    @Test fun getAddress() {
+    @Test
+    fun getAddress() {
         val acct = Account()
         acct.address = "some_address"
         assertEquals(acct.address, "some_address")
     }
 
-    @Test fun setAddress() {
+    @Test
+    fun setAddress() {
         val acct = Account()
         acct.address = "some_address"
         assertEquals(acct.address, "some_address")
     }
 
-    @Test fun getWeight() {
+    @Test
+    fun getWeight() {
         val acct = Account()
         acct.balance = 1.toFloat()
         assertEquals(acct.balance, 1.toFloat())
     }
 
-    @Test fun setWeight() {
+    @Test
+    fun setWeight() {
         val acct = Account()
         acct.balance = 1.toFloat()
         assertEquals(acct.balance, 1.toFloat())
