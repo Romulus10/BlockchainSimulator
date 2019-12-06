@@ -38,11 +38,16 @@ export class ListPage implements OnInit {
       this.openToast('Cannot enter a higher amount than your current balance!');
       return;
     }
+    if (proposedStake <= 0) {
+      this.openToast('Stake amount must be > 0.');
+      return;
+    }
     this.stakes[account.address] = proposedStake;
     this.accountService.stake(account, this.stakes[account.address]).subscribe(_ => {
       this.openToast('Stake successful!');
       return;
     });
+    this.accountService.listAccounts();
   }
 
   ngOnInit() {
