@@ -14,7 +14,7 @@
 
   <ion-list>
     <ion-item *ngFor="let transaction of transactions$ | async">
-      Transaction: {{transaction.signature}}
+      Transaction: {{transaction.fr}} -> {{transaction.to}}
     </ion-item>
   </ion-list>
 

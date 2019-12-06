@@ -21,7 +21,7 @@ export class TransactionsPage implements OnInit {
     protected transactionService: TransactionService,
     protected toastCtrl: ToastController,
   ) {
-    this.transactions$ = transactionService.listTransactions()
+    this.transactions$ = transactionService.listTransactions();
   }
 
   ngOnInit() {
@@ -36,6 +36,7 @@ export class TransactionsPage implements OnInit {
       console.log(detail);
       this.transactionService.createTransaction(detail.data).subscribe();
     })
+    this.transactions$ = transactionService.listTransactions();
   }
 
 }
