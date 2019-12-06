@@ -73,7 +73,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         }
         try {
             blockInvestigating.transactions.forEach {
-                interpreter.runContract(it.data)
+                interpreter.runContract(it.data.toString())
             }
         } catch (ex: Exception) {
             return false
@@ -102,7 +102,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun messUpBlock(indexToKill: Int) {
-        blockList[indexToKill].transactions[0].data = "BAD DATA MUAHAHA"
+        blockList[indexToKill].transactions[0].data =  blockList[indexToKill].transactions[0].data + 1
     }
 
     fun replaceChain(newBlockChain: BlockChain): Boolean {

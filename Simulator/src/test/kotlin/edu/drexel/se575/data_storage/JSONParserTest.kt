@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class JSONParserTest {
 
     private val testBlockChain = BlockChain()
-    private val testTransaction = Transaction("To string", "From string", "My data string",
+    private val testTransaction = Transaction("To string", "From string", 5.toFloat(),
             generateKeyPair()!!.public)
     private val testAccount = Account()
 
