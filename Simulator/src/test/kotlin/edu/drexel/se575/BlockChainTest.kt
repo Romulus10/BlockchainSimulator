@@ -138,6 +138,7 @@ class BlockChainTest {
         blockChain.stakeCoins(acctA, 10.toFloat())
 
         assert(acctA.balance == 90.toFloat())
+        assert (acctA.currentStakedCoins == 10.toFloat())
     }
 
     @Test
@@ -149,6 +150,7 @@ class BlockChainTest {
 
         testBlockChain.stakeCoins(testAccount, initialBalance)
         assert(testAccount.balance == 0.toFloat())
+        assert(testAccount.currentStakedCoins == initialBalance)
 
         repeat(TX_PER_BLOCK) {
             testBlockChain.addTransactionToQueue(testTransaction)
@@ -162,7 +164,9 @@ class BlockChainTest {
             testBlockChain.addTransactionToQueue(testTransaction)
         }
 
-        assert(testAccount.balance == initialBalance + TX_PER_BLOCK && testAccountB.balance == 2.toFloat())
+        assert(testAccount.balance == initialBalance + TX_PER_BLOCK &&
+                testAccount.currentStakedCoins == 0.toFloat() &&
+                testAccountB.balance == 2.toFloat())
     }
 
     @Test

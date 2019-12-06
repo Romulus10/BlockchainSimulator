@@ -27,8 +27,9 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     private fun payPreviousMinter() {
         if (stakeManager.currentStake != null) {
             val accountToPay = stakeManager.currentStake!!.account
-            accountToPay.balance += stakeManager.currentStake!!.coinAmountStaked
-            accountToPay.balance += blockList.last().transactions.size
+            val amountToPay = stakeManager.currentStake!!.coinAmountStaked + blockList.last().transactions.size
+            accountToPay.balance += amountToPay
+            accountToPay.currentStakedCoins -= amountToPay - blockList.last().transactions.size
         }
     }
 

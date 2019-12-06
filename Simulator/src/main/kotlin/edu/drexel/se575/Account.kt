@@ -13,9 +13,10 @@ import java.security.PublicKey
  */
 @Serializable class Account {
     var address: String
-    var balance: Float = 100.toFloat()
+    var balance = 100.toFloat()
     val privateKey: PrivateKey
     val publicKey: PublicKey
+    var currentStakedCoins = 0.toFloat()
 
     init {
         val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
