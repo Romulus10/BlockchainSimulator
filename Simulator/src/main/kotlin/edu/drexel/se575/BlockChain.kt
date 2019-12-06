@@ -68,7 +68,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     private fun checkBlock(blockInvestigating: Block, previousBlock: Block): Boolean {
-        if (previousBlock.hash != blockInvestigating.previousBlockHash) {
+        if (previousBlock.hash != blockInvestigating.previousBlockHash || !previousBlock.isValid) {
             previousBlock.isValid = false
             return false
         }
@@ -80,6 +80,9 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         for (i in 1 until (blockList.size - 1)) {
             val isValid = checkBlock(blockList[i], blockList[i - 1])
             if (!isValid) {
+                for (j in i until blockList.size){
+                    blockList[j].isValid = false
+                }
                 return false
             }
         }
