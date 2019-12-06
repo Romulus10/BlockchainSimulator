@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { AccountService } from '../services/account.service';
 import { ToastController } from '@ionic/angular';
 import { NodeAccount } from 'src/models/account';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -18,6 +19,7 @@ export class ListPage implements OnInit {
   constructor(
     protected accountService: AccountService,
     protected toastCtrl: ToastController,
+    public navCtrl: NavController,
   ) {
     this.accounts$ = accountService.listAccounts();
   }
@@ -25,11 +27,13 @@ export class ListPage implements OnInit {
   async onCreateAccountClick() {
     this.accountService.createAccount().subscribe();
     const toast = await this.toastCtrl.create({
-      message: 'Account created, refresh the page to see all accounts!',
+      message: 'Account created!',
       duration: 1500,
       position: 'top',
     })
     toast.present();
+    this.accountService.listAccounts();
+    location.reload();
   }
 
   async onStakeButtonClick(account: NodeAccount) {
@@ -48,6 +52,7 @@ export class ListPage implements OnInit {
       return;
     });
     this.accountService.listAccounts();
+    location.reload();
   }
 
   ngOnInit() {
