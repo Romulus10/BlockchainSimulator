@@ -37,9 +37,18 @@ export class TransactionsPage implements OnInit {
     popover.onDidDismiss().then((detail: OverlayEventDetail<TransactionProposal>) => {
       console.log(detail);
       this.transactionService.createTransaction(detail.data).subscribe();
+      this.transactions$ = this.transactionService.listTransactions();
+      this.openToast("Transaction sent. Refresh the page.");
     })
-    this.transactions$ = this.transactionService.listTransactions();
-    location.reload();
+  }
+
+  async openToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      position: 'top',
+      message: msg,
+      duration: 3000,
+    })
+    await toast.present();
   }
 
 }
