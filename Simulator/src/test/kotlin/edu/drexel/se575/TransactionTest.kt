@@ -46,7 +46,7 @@ internal class TransactionTest {
         acctList.add(Account())
         val initialTransaction = Transaction(acctList[0].address, acctList[0].address, 5.toFloat(), acctList[0].publicKey)
         initialTransaction.sign(acctList[0].privateKey)
-        val keyString = "To: ${acctList[0].address}, From: ${acctList[0].address}, pubkey: ${encoder.encodeToString(acctList[0].publicKey.encoded)}, Signature: ${initialTransaction.signature}, Data: pay $100, Block Height: 1, Block Number: 1"
+        val keyString = "To: ${acctList[0].address}, From: ${acctList[0].address}, pubkey: ${encoder.encodeToString(acctList[0].publicKey.encoded)}, Signature: ${initialTransaction.signature}, Data: 5, Block Height: 1, Block Number: 1"
         val secondTransaction = transactionFromString(acctList, keyString)
         assertEquals(initialTransaction.signature, secondTransaction.signature)
     }
