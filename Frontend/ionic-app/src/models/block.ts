@@ -6,4 +6,5 @@ export interface Block {
     previousBlockHash: string;
     valid: boolean;
     hash: string;
+    isValid: boolean;
 }
