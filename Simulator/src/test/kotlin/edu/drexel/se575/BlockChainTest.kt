@@ -2,7 +2,6 @@ package edu.drexel.se575
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalArgumentException
 
 class BlockChainTest {
 
@@ -207,20 +206,22 @@ class BlockChainTest {
         val testAccountA = Account()
         val testAccountB = Account()
         val initialBalance = testAccountA.balance
+        val oneStakePortion = initialBalance / (TX_PER_BLOCK * 2)
+        val stakeReward = TX_PER_BLOCK
 
-        repeat(TX_PER_BLOCK){
-            testBlockChain.stakeCoins(testAccountA, initialBalance/ TX_PER_BLOCK)
+        //mint block + 1 extra transaction, we should get paid for the first transactions but NOT get the last stake
+        //back
+        repeat(TX_PER_BLOCK + 1) {
+            testBlockChain.stakeCoins(testAccountA, oneStakePortion)
         }
 
-        repeat(TX_PER_BLOCK){
-            testBlockChain.stakeCoins(testAccountB, initialBalance/ TX_PER_BLOCK)
+
+        // just here to mint another block
+        repeat(TX_PER_BLOCK - 1) {
+            testBlockChain.stakeCoins(testAccountB, 1.toFloat())
         }
 
-        assert(testAccountA.balance == initialBalance + TX_PER_BLOCK)
-
-
-
-
+        assert(testAccountA.balance == initialBalance - oneStakePortion + stakeReward)
 
 
     }
