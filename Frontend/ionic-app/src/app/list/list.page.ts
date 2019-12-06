@@ -57,6 +57,7 @@ export class ListPage implements OnInit {
     const toast = await this.toastCtrl.create({
       position: 'top',
       message: msg,
+      duration: 3000,
     })
     await toast.present();
   }

@@ -13,8 +13,7 @@
   <ion-grid padding>
     <ion-row>
       <ion-col *ngFor="let block of blocks | async; let i = index">
-        <p style="text-align: center;">Block {{i}}</p>
-        <app-block [block]="block"></app-block>
+        <app-block [block]="block" [index]=i></app-block>
       </ion-col>
     </ion-row>
   </ion-grid>

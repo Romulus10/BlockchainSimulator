@@ -51,10 +51,10 @@ fun transferAccountValue(accountList: Array<Account?>, to: String?, fr: String?,
     accountList.forEach {
         it!! // Assert that this object is not null.
         if (it.address == to) {
-            it.balance -= amount
+            it.balance += amount
         }
         if (it.address == fr) {
-            it.balance += amount
+            it.balance -= amount
         }
     }
 }
