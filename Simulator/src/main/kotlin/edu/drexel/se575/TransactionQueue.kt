@@ -1,6 +1,6 @@
 package edu.drexel.se575
 
-const val TX_PER_BLOCK = 5
+const val TX_PER_BLOCK = 3 //3 is the minimum to function properly
 
 class TransactionQueue(private var blockChain: BlockChain) {
 
