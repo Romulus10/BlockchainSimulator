@@ -77,7 +77,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun isValid(): Boolean {
-        for (i in 1 until (blockList.size - 1)) {
+        for (i in 1 until (blockList.size)) {
             val isValid = checkBlock(blockList[i], blockList[i - 1])
             if (!isValid) {
                 for (j in i until blockList.size) {
@@ -90,7 +90,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     }
 
     fun findBrokenBlock(): Int? {
-        for (i in 1 until (blockList.size - 1)) {
+        for (i in 1 until (blockList.size)) {
             val isValid = checkBlock(blockList[i], blockList[i - 1])
             if (!isValid) {
                 return i

@@ -92,7 +92,23 @@ class BlockChainTest {
                 generateKeyPair()!!.public)
 
         blockChain.blockList[4].transactions[0] = myPhonyTransaction
-        blockChain.blockList[4].transactions[0] = myPhonyTransaction
+
+        assert(!blockChain.isValid())
+    }
+
+    @Test
+    fun `edit a end block in blockchain with 10 blocks and find not valid`() {
+        val blockChain = BlockChain()
+        getMoney()
+
+        make9Blocks(blockChain)
+        assert(blockChain.size == 10)
+
+
+        val myPhonyTransaction = Transaction("me", "you", 5.toFloat(),
+                generateKeyPair()!!.public)
+
+        blockChain.blockList[8].transactions[0] = myPhonyTransaction
 
         assert(!blockChain.isValid())
     }
