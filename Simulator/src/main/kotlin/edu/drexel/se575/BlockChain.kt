@@ -50,6 +50,8 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         val validator = stakeManager.chooseValidator()
         val blockTx = transactionQueue.getTransactionsForBlock()
         val signature = createSignatureForNewBlock(blockTx, validator.privateKey)
+
+
         val newBlock = Block(blockTx, validator.publicKey.toString(), signature!!, blockList.last().hash)
 
         stakeManager.updateCurrentStake(validator)
@@ -123,9 +125,9 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         if (amount <= 0 ){
             throw java.lang.IllegalArgumentException("Stake must be greater than 0")
         }
-
-        this.addTransactionToQueue(Transaction(STAKED_COINS, account.address, amount, account.publicKey))
         stakeManager.stakeCoins(account, amount)
+        this.addTransactionToQueue(Transaction(STAKED_COINS, account.address, amount, account.publicKey))
+
     }
 
 
