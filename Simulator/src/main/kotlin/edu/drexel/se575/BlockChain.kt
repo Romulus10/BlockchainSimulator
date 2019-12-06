@@ -50,6 +50,8 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
         val validator = stakeManager.chooseValidator()
         val blockTx = transactionQueue.getTransactionsForBlock()
         val signature = createSignatureForNewBlock(blockTx, validator.privateKey)
+
+
         val newBlock = Block(blockTx, validator.publicKey.toString(), signature!!, blockList.last().hash)
 
         stakeManager.updateCurrentStake(validator)
@@ -132,7 +134,7 @@ class BlockChain(var blockList: ArrayList<Block> = arrayListOf()) {
     private fun payPreviousMinter(): Transaction? {
         if (stakeManager.currentStake != null) {
             val accountToPay = stakeManager.currentStake!!.account
-            val amountToPay = stakeManager.currentStake!!.coinAmountStaked + blockList.last().transactions.size
+            val amountToPay = accountToPay.currentStakedCoins + blockList.last().transactions.size
             accountToPay.balance += amountToPay
             accountToPay.currentStakedCoins -= amountToPay - blockList.last().transactions.size
             return Transaction(accountToPay.address, STAKE_PAYOUT, amountToPay, accountToPay.publicKey)

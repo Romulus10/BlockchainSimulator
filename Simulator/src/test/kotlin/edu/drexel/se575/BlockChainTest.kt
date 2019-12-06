@@ -208,11 +208,18 @@ class BlockChainTest {
         val testAccountB = Account()
         val initialBalance = testAccountA.balance
 
-        repeat(5){
-            testBlockChain.stakeCoins(testAccountA, initialBalance/5)
+        repeat(TX_PER_BLOCK){
+            testBlockChain.stakeCoins(testAccountA, initialBalance/ TX_PER_BLOCK)
         }
 
-        //TODO actually test
+        repeat(TX_PER_BLOCK){
+            testBlockChain.stakeCoins(testAccountB, initialBalance/ TX_PER_BLOCK)
+        }
+
+        assert(testAccountA.balance == initialBalance + TX_PER_BLOCK)
+
+
+
 
 
 
