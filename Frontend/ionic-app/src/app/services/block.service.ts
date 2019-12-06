@@ -23,19 +23,4 @@ export class BlockService {
       tap(parsedData => console.log('parsed data', parsedData))
     );
   }
-
-  public isValidBlock(i: number): boolean {
-    const url = `${this.baseUrl}/client/block/get_if_valid`;
-
-    const result = this.http.get<string>(url).pipe(
-      map(data => JSON.parse(data)),
-      tap(parsedData => console.log('parsed data', parsedData))
-    )
-
-    if (result['invalid_block'] == i) {
-      return false;
-    } else {
-      return true;
-    }
-  }
 }
