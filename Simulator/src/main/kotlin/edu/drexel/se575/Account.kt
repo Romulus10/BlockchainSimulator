@@ -11,7 +11,8 @@ import java.security.PublicKey
  * @property address The unique address of the account.
  * @property balance The amount of coin held by this account.
  */
-@Serializable class Account {
+@Serializable
+class Account {
     var address: String
     var balance = 100.toFloat()
     val privateKey: PrivateKey

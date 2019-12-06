@@ -40,7 +40,7 @@ class BlockChainTest {
     fun `test 5 transactions makes a block`() {
         val blockChain = BlockChain()
         getMoney()
-        
+
         var chainInitialSize = blockChain.size
 
         blockChain.stakeCoins(acctA, 99.0.toFloat())
@@ -56,9 +56,9 @@ class BlockChainTest {
         assert(blockChain.size == chainInitialSize + 1)
 
         chainInitialSize = blockChain.size
-        
+
         //repeat above just to be extra confident
-        repeat(TX_PER_BLOCK - blockChain.listTransactionQueue().size - 1 ) {
+        repeat(TX_PER_BLOCK - blockChain.listTransactionQueue().size - 1) {
             blockChain.addTransactionToQueue(testTransaction)
             assert(blockChain.size == chainInitialSize)
         }
@@ -139,7 +139,7 @@ class BlockChainTest {
         blockChain.stakeCoins(acctA, 10.toFloat())
 
         assert(acctA.balance == 90.toFloat())
-        assert (acctA.currentStakedCoins == 10.toFloat())
+        assert(acctA.currentStakedCoins == 10.toFloat())
     }
 
     @Test
@@ -156,7 +156,7 @@ class BlockChainTest {
     }
 
     @Test
-    fun `no over staking`(){
+    fun `no over staking`() {
         val blockChain = BlockChain()
         getMoney()
         val amountToStake = acctA.balance
@@ -223,7 +223,7 @@ class BlockChainTest {
 
         val result = initialBalance - oneStakePortion + stakeReward
 
-        assert((testAccountA.balance *100).toInt() == (result * 100).toInt())
+        assert((testAccountA.balance * 100).toInt() == (result * 100).toInt())
 
 
     }
@@ -249,7 +249,7 @@ class BlockChainTest {
         testBlockChain.findBrokenBlock()
         assert(!testBlockChain.blockList[2].isValid)
 
-        for(i in 2 until testBlockChain.size){
+        for (i in 2 until testBlockChain.size) {
             assert(!testBlockChain.blockList[i].isValid)
         }
 

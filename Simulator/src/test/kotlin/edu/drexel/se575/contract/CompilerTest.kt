@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test
 
 internal class CompilerTest {
 
-    @Test fun `compiling produces expected intermediate output`() {
+    @Test
+    fun `compiling produces expected intermediate output`() {
         val result = compile("""
             add 0 1
             add 1 1

@@ -5,7 +5,8 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import io.javalin.Javalin
 import kotlinx.serialization.Serializable
 
-@Serializable data class TransactionProposal(val to: String?, val fr: String?, val data: String?)
+@Serializable
+data class TransactionProposal(val to: String?, val fr: String?, val data: String?)
 
 fun transactionProposalFromJson(json: String): TransactionProposal {
     val jsonBroken = json.split(',')
@@ -110,7 +111,7 @@ fun main() {
         blockChain.messUpBlock(ctx.pathParam("index").toInt())
     }
 
-    app.get("/client/account/stake/:address/:amount"){ ctx ->
+    app.get("/client/account/stake/:address/:amount") { ctx ->
         val address = ctx.pathParam("address")
         val amount = ctx.pathParam("amount")
         val usrAccount = blockChain.interpreter.accountList.filter {
