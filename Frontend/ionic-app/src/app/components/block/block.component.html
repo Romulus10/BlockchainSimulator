@@ -8,6 +8,8 @@
     <p>{{block.hash}}</p>
     <h1>Previous block hash:</h1>
     <p>{{block.previousBlockHash}}</p>
+    <h1>Valid Block:</h1>
+    <p>{{isValid}}<p>
     <ion-button (click)="viewTransactions = !viewTransactions">View Transactions</ion-button>
     <div *ngIf="viewTransactions">
       <ion-card *ngFor="let transaction of block.transactions; let i = index">
