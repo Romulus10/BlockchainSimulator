@@ -221,7 +221,9 @@ class BlockChainTest {
             testBlockChain.stakeCoins(testAccountB, 1.toFloat())
         }
 
-        assert(testAccountA.balance == initialBalance - oneStakePortion + stakeReward)
+        val result = initialBalance - oneStakePortion + stakeReward
+
+        assert((testAccountA.balance *100).toInt() == (result * 100).toInt())
 
 
     }
