@@ -2,9 +2,28 @@
   <!-- <img src="/assets/shapes.svg" alt="" /> -->
   <ion-card-header>
     <ion-card-subtitle>Block</ion-card-subtitle>
-    <ion-card-title>{{block.hash}}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <p>Data goes here</p>
+    <h1>Hash:</h1>
+    <p>{{block.hash}}</p>
+    <h1>Previous block hash:</h1>
+    <p>{{block.previousBlockHash}}</p>
+    <ion-button (click)="viewTransactions = !viewTransactions">View Transactions</ion-button>
+    <div *ngIf="viewTransactions">
+      <ion-card *ngFor="let transaction of block.transactions; let i = index">
+        <ion-list>
+          <ion-item>
+            <ion-label>From: {{transaction.fr}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>To: {{transaction.to}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Data: {{transaction.data}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+    </div>
+
   </ion-card-content>
 </ion-card>
