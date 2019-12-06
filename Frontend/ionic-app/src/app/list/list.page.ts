@@ -13,6 +13,7 @@ export class ListPage implements OnInit {
   private selectedItem: any;
   public accounts$: Observable<NodeAccount[]>;
   public stakes: Map<string, number> = new Map<string, number>();
+  public stakeProposal: Map<string, number> = new Map<string, number>();
 
   constructor(
     protected accountService: AccountService,
@@ -32,10 +33,26 @@ export class ListPage implements OnInit {
   }
 
   async onStakeButtonClick(account: NodeAccount) {
-    console.log(this.stakes)
-    this.accountService.stake(account, this.stakes[account.address]).subscribe();
+    const proposedStake: number = this.stakeProposal[account.address];
+    if (proposedStake > account.balance) {
+      this.openToast('Cannot enter a higher amount than your current balance!');
+      return;
+    }
+    this.stakes[account.address] = proposedStake;
+    this.accountService.stake(account, this.stakes[account.address]).subscribe(_ => {
+      this.openToast('Stake successful!');
+      return;
+    });
   }
 
   ngOnInit() {
+  }
+
+  async openToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      position: 'top',
+      message: msg,
+    })
+    await toast.present();
   }
 }
