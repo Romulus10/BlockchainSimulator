@@ -18,9 +18,9 @@ internal class TransactionTest {
     @Test
     fun `sign multiples transactions Different Hash`() {
         val testTransactionA = Transaction("To string", "From string", 5.toFloat(), myKeyPair!!.public)
-        val testTransactionB = Transaction("To string", "From string", 5.toFloat(), myKeyPair!!.public)
-        testTransactionA.sign(myKeyPair!!.private)
-        testTransactionB.sign(myKeyPair!!.private)
+        val testTransactionB = Transaction("To string", "From string", 5.toFloat(), myKeyPair.public)
+        testTransactionA.sign(myKeyPair.private)
+        testTransactionB.sign(myKeyPair.private)
         assert(testTransactionA.signature != null)
         assert(testTransactionA.signature != testTransactionB.signature)
 

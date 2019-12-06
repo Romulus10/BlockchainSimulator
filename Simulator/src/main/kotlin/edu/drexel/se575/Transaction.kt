@@ -9,7 +9,7 @@ import java.security.PublicKey
  */
 @Serializable class Transaction(var to: String, var fr: String, var data: Float, var publicKey: PublicKey) {
     var signature: String? = null
-    var timeSigned: Long? = null
+    private var timeSigned: Long? = null
 
     /**
      *
